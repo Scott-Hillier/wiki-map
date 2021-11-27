@@ -56,30 +56,48 @@ PRIVATE GET /:userId/sign-out
 
 # MAPS ROUTES; api/maps
 
-## Get all maps
+## get all maps
 
 PUBLIC GET /
 
-## Get a registered user's maps
+## get user's maps with user ID
 
 PUBLIC GET /:userId
 
-## create a map
+## get a map with map ID
+
+PRIVATE GET /:mapId
+
+## auth user creates a map
 
 PRIVATE POST /new-map
 
-## edit a map by auth user
+## auth user deletes a map
 
-PRIVATE PUT /:mapId
-
-## delete a map by auth user
-
-PRIVATE POST /:mapId
+PRIVATE DELETE /:mapId
 
 ---
 
-# PROFILE ROUTES; api/profiles
+# POINTS ROUTES; api/points
 
-## Get a registered user's profiles
+## auth user adds a poin in a map with map ID
 
-PUBLIC GET /:userId
+PRIVATE POST /:mapId/new-point
+
+## get all points from a map with map ID
+
+PUBLIC GET /:mapId
+
+## get a point with map ID && point ID
+
+PUBLIC GET /:mapId/:pointId
+
+## auth user deletes a point with map ID && point ID
+
+PRIVATE DELETE /:mapId/:pointId
+
+---
+
+# PROFILES ROUTES; api/profiles
+
+...
