@@ -6,13 +6,13 @@ module.exports = (db) => {
   //get all maps
   router.get("/", (req, res) => {
     const queryString = `
-    SELECT * FROM users;
+    SELECT * FROM maps;
     `;
 
     db.query(queryString)
       .then((data) => {
-        const users = data.rows;
-        res.json({ users });
+        const maps = data.rows;
+        res.json({ maps });
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
