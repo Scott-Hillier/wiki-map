@@ -42,12 +42,44 @@ GeT /register
 
 ## Get all user
 
-GET /
+PUBLIC GET
 
 ## Sign in user
 
-POST /:userId/sign-in
+PUBLIC GET /:userId/sign-in --> GET request, since we minimize sign-in/up features
 
 ## Sign out user
 
-GET /:userId/sign-out
+PRIVATE GET /:userId/sign-out
+
+---
+
+# MAPS ROUTES; api/maps
+
+## Get all maps
+
+PUBLIC GET /
+
+## Get a registered user's maps
+
+PUBLIC GET /:userId
+
+## create a map
+
+PRIVATE POST /new-map
+
+## edit a map by auth user
+
+PRIVATE PUT /:mapId
+
+## delete a map by auth user
+
+PRIVATE POST /:mapId
+
+---
+
+# PROFILE ROUTES; api/profiles
+
+## Get a registered user's profiles
+
+PUBLIC GET /:userId

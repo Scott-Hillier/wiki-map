@@ -6,7 +6,10 @@
  */
 
 const express = require("express");
+const { render } = require("sass");
 const router = express.Router();
+
+// const checkAuth = require("../auth-middleware/auth-middleware");
 
 module.exports = (db) => {
   //@@ public route api/users
@@ -37,12 +40,13 @@ module.exports = (db) => {
     const queryString = `
     SELECT * FROM users WHERE id = $1;
     `;
-    console.log(req.params.userId);
     db.query(queryString, queryParams)
       .then((data) => {
         const user = data.rows[0];
         res.json(user);
         req.session.userId = req.params.userId;
+        console.log(req.session.userId);
+        render("index");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
