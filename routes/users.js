@@ -6,7 +6,10 @@
  */
 
 const express = require("express");
+const { render } = require("sass");
 const router = express.Router();
+
+// const checkAuth = require("../auth-middleware/auth-middleware");
 
 module.exports = (db) => {
   //@@ public route api/users
@@ -19,48 +22,31 @@ module.exports = (db) => {
     db.query(queryString)
       .then((data) => {
         const users = data.rows;
-        res.json({ users });
+        res.json(users);
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
       });
   });
 
-  //@@ public route api/
-  //registere a user + render map/home page with session cookie;
-  router.post("/sign-up", (req, res) => {
-    const { name, password } = req.body;
-    const queryParams = [name, password];
-    const queryString = `
-    INSERT INTO users (name, password) VALUES ($1, $2) RETURNING *;
-    `;
-
-    db.query(queryString, queryParams)
-      .then((data) => {
-        const users = data.rows;
-        res.json({ users });
-
-        req.session.userId = req.params.userId;
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+  // //@@ public route api/
+  // //registere a user + render map/home page with session cookie;
+  // FOR 5MIN DEMO, USER SIGN UP IS OMMITED
 
   //@@ public route api/users
   //get a registered user with user ID + render map/home page with session cookie;
-  router.post("/:userId/sign-in", (req, res) => {
+  router.get("/:userId/sign-in", (req, res) => {
     const queryParams = [req.params.userId];
     const queryString = `
     SELECT * FROM users WHERE id = $1;
     `;
-
     db.query(queryString, queryParams)
       .then((data) => {
-        const users = data.rows;
-        res.json({ users });
-
+        const user = data.rows[0];
+        res.json(user);
         req.session.userId = req.params.userId;
+        console.log(req.session.userId);
+        render("index");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
