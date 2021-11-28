@@ -21,30 +21,36 @@
 
 @import 'foundation/_variables';
 
-.container {
-  color: white;
+body {
+  color: black;
+  background-color: white;
 }
+
+.container {
+  // border: 2px dotted red;
+  color: white;
+  // background-color: black;
+}
+
 .c1 {
   background-color: $color-palette-1a;
 }
 .c2 {
-  background-color: $color-palette-1c;
+  background-color: $color-palette-1b;
 }
 .c3 {
-  background-color: $color-palette-1d;
+  background-color: $color-palette-1c;
 }
 .c4 {
-  background-color: $color-palette-1b;
+  background-color: $color-palette-1d;
 }
 .c5 {
   background-color: $color-palette-1f;
 }
 
-
 a {
   color: white;
   text-decoration: none;
-}
-a:hover {
-  text-decoration: underline;
+  &:hover { text-decoration: underline; }
+  &:active { color: black; }
 }

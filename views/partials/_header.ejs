@@ -1,32 +1,25 @@
 <nav class="navbar">
 
-  <a id="logo" href="/"><h1><i class="fab fa-wikipedia-w"></i>IKI MAPS</h1></a>
+  <a class="logo" href="/">
+    <img src="./images/logo.png" alt="Wiki Maps" width="40px" height="40px">
+    <h1><i class="fab fa-wikipedia-w"></i>IKI MAPS</h1>
+  </a>
 
-  <ul class="navbar-nav">
+  <div class="nav">
+    <!-- ejs if (user) -->
+    <div class="left">
+      <a href="/profile">Profile</a>
+      <a href="/maps">Maps</a>
+      <a href="/maps/new">Create Map</a>
+    </div>
+    <div class="right">
+      <a href="/logout">Logout</a>
+    </div>
 
-    <!-- ejs if logged-in -->
-    <li class="nav-item">
-      <a class="nav-link" href="/profile">Profile</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/maps">View Maps</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/maps/new">Create Map</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/logout">About</a>
-    </li>
-
-    <!-- ejs if not logged-in -->
-
-    <li class="nav-item">
-      <a class="nav-link" href="/login">Login</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/register">Register</a>
-    </li>
-
-  </ul>
+    <!-- ejs if (!user) -->
+    <!-- <a class="nav-link" href="/maps">View Maps</a>
+    <a class="nav-link" href="/login">Login</a>
+    <a class="nav-link" href="/register">Register</a> -->
+  </div>
 
 </nav>

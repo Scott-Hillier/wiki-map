@@ -3,6 +3,10 @@
  * https://css-tricks.com/international-box-sizing-awareness-day/
  * Do not modify these two selectors, please
  */
+
+/*
+ * 'box-sizing: border-box' allows us to include padding & border in element's total width & height.
+ */
 html {
   box-sizing: border-box;
 }
