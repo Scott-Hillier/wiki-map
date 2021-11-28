@@ -33,7 +33,7 @@
 ## Step 6: Switch to master branch for final merge and push
 * Once everything has been committed, switch to master branch for final merge and push
 `> git checkout master`
-`> git merge feawture/new-branch`
+`> git merge feature/new-branch`
 `> git push origin master`
 
 
