@@ -20,6 +20,9 @@
 ## Step 4: Switch to feature branch, merge new changes from master to feature branch
   `> git checkout feature/new-branch`
   `> git merge master`
+  * if vim opens:
+    * save: esc, :w, enter
+    * quit: esc, :x, enter
 
 ## Step 5: Resolve Conflicts
 * Resolve if any merge conflicts (be cautious to not delete teammates work)
