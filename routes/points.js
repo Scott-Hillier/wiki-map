@@ -1,7 +1,7 @@
 const express = require("express");
 const { render } = require("sass");
 const router = express.Router();
-const { addPoint, editPoint, deletePoint } = require("../db/database");
+const { addPoint, editPoint, deletePoint } = require("../db-helper/database");
 
 module.exports = (db) => {
   // add point to map

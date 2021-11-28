@@ -31,17 +31,33 @@ const getAllAvailableMaps = function (db) {
 };
 exports.getAllAvailableMaps = getAllAvailableMaps;
 
-const getUserMap = function (mapId, db) {
+const getUserMaps = function (user_id, db) {
+  return db
+    .query(
+      `
+    SELECT * FROM maps WHERE user_id = $1;`,
+      [user_id]
+    )
+    .then((result) => result.rows)
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+};
+exports.getUserMaps = getUserMaps;
+
+const getSingleMap = function (map_id, db) {
   return db
     .query(
       `
     SELECT * FROM maps WHERE id = $1;`,
-      [mapId]
+      [map_id]
     )
     .then((result) => result.rows[0])
-    .catch((err) => console.log(err.message));
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 };
-exports.getUserMap = getUserMap;
+exports.getSingleMap = getSingleMap;
 
 const createMap = function (options, db) {
   return db
@@ -51,14 +67,20 @@ const createMap = function (options, db) {
       RETURNING *;`,
       [options.user_id, options.name, options.isPrivate]
     )
-    .catch((err) => console.log(err.message));
+    .then((result) => result.rows[result.rows.length])
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 };
 exports.createMap = createMap;
 
 const deleteMap = function (map_id, db) {
   return db
     .query(`DELETE FROM maps WHERE map_id = $1;`, [map_id])
-    .catch((err) => console.log(err.message));
+    .then((result) => result.rows)
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 };
 exports.deleteMap = deleteMap;
 
@@ -72,14 +94,41 @@ const favoriteMap = function (map_id, status, db) {
 };
 exports.favoriteMap = favoriteMap;
 
-const addPoint = function (point, map_id, db) {
+const getAllPointsFromMap = function (db) {
+  return db
+    .query(
+      `
+      SELECT * FROM points;`
+    )
+    .then((result) => result.rows)
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+};
+exports.getAllPointsFromMap = getAllPointsFromMap;
+
+const getSinglePoint = function (map_id, point_id, db) {
+  return db
+    .query(
+      `
+      SELECT * FROM points WHERE map_id = $1 AND id = $2;`,
+      [map_id, point_id]
+    )
+    .then((result) => result.rows)
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+};
+exports.getSinglePoint = getSinglePoint;
+
+const addPoint = function (point, db) {
   return (db.query(`
   INSERT INTO points(map_id, title, description, image, latitude, longitude, address, type)
   VALUES($1, $2, $3, $4, $5, $6, $7, $8)
   RETURNING *;
   `),
   [
-    map_id,
+    point.mapId,
     point.title,
     point.description,
     point.image,
@@ -88,8 +137,10 @@ const addPoint = function (point, map_id, db) {
     point.address,
     point.type,
   ])
-    .then((result) => result.rows[0])
-    .catch((err) => console.log(err.message));
+    .then((result) => result.rows[result.rows.length])
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
 };
 exports.addPoint = addPoint;
 
@@ -170,6 +221,7 @@ exports.editPoint = editPoint;
 const deletePoint = function (point_id, db) {
   return db
     .query(`DELETE FROM maps WHERE id = $1;`, [point_id])
+    .then((res) => res.rows)
     .catch((err) => console.log(err.message));
 };
 exports.deletePoint = deletePoint;

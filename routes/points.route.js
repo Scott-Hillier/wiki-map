@@ -1,42 +1,22 @@
 const express = require("express");
+const {
+  addPoint,
+  getAllPointsFromMap,
+  getSinglePoint,
+} = require("../db-helper/database");
 const router = express.Router();
 
 module.exports = (db) => {
   //@@ private route api/points
   //auth user adds a point in a map
   router.post("/:mapId/new-point", (req, res) => {
-    const mapId = req.params.mapId;
-    const queryParams = [mapId];
-    const queryString = `
-    CREATE A POINT IN A MAP
-    `;
-
-    db.query(queryString, queryParams)
-      .then((data) => {
-        const userMaps = data.rows;
-        res.json(userMaps);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    addPoint(req.body, db).then((data) => res.json(data));
   });
 
   //@@ public route api/points
   //get all point from a map
   router.get("/:mapId", (req, res) => {
-    const queryParams = [req.params.mapId];
-    const queryString = `
-    GET ALL POINTS FROM A MAP
-    `;
-
-    db.query(queryString, queryParams)
-      .then((data) => {
-        const userMaps = data.rows;
-        res.json(userMaps);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    getAllPointsFromMap(req.body, db).then((data) => res.json(data));
   });
 
   //@@ public route api/points
