@@ -15,26 +15,6 @@ const userDataHelper = require("../db-helper/user.helper");
 module.exports = (db) => {
   //load helper functions
   const { getUserWithUserId } = userDataHelper(db);
-  //@@ public route api/users
-  //get all users
-  router.get("/", (req, res) => {
-    const queryString = `
-    SELECT * FROM users;
-    `;
-
-    db.query(queryString)
-      .then((data) => {
-        const users = data.rows;
-        res.json(users);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
-  // //@@ public route api/
-  // //registere a user + render map/home page with session cookie;
-  // FOR 5MIN DEMO, USER SIGN UP IS OMMITED
 
   //@@ public route api/users
   //get a registered user with user ID + render map/home page with session cookie;

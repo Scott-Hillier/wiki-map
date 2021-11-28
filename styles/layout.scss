@@ -85,13 +85,21 @@ html {
       align-items: center;
       height: 100%;
       width: 25%;
-      .user-sign-out-box {
+
+      .sign-in-form {
+        > button {
+          float: right;
+        }
+      }
+
+      .sign-out-box {
         > p {
           margin: 0;
         }
         .signed-in-message {
           font-size: 1.3em;
         }
+
         .sign-out-button {
           margin-top: 5px;
           cursor: pointer;

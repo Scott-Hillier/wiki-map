@@ -40,10 +40,6 @@ GeT /register
 
 # USER ROUTES; api/users
 
-## Get all user
-
-PUBLIC GET
-
 ## Sign in user
 
 PUBLIC GET /:userId/sign-in --> GET request, since we minimize sign-in/up features
