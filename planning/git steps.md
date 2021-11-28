@@ -1,6 +1,7 @@
 # Git Workflow
 
 ## Step 0: Before working, make sure master branch is updated
+  `> git checkout master`
   `> git pull origin master`
 
 ## Step 1: Switch to feature branch

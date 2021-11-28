@@ -6,20 +6,23 @@
   </a>
 
   <div class="nav">
+
     <!-- ejs if (user) -->
     <div class="left">
       <a href="/profile">Profile</a>
       <a href="/maps">Maps</a>
       <a href="/maps/new">Create Map</a>
     </div>
+
     <div class="right">
       <a href="/logout">Logout</a>
+
+          <!-- ejs if (!user) -->
+      <a class="nav-link" href="/login">Login</a>
+      <a class="nav-link" href="/register">Register</a>
     </div>
 
-    <!-- ejs if (!user) -->
-    <!-- <a class="nav-link" href="/maps">View Maps</a>
-    <a class="nav-link" href="/login">Login</a>
-    <a class="nav-link" href="/register">Register</a> -->
+
   </div>
 
 </nav>
