@@ -8,9 +8,13 @@
 const express = require("express");
 const router = express.Router();
 
+const userDataHelper = require("../db-helper/user.helper");
+
 // const checkAuth = require("../auth-middleware/auth-middleware");
 
 module.exports = (db) => {
+  //load helper functions
+  const { getUserWithUserId } = userDataHelper(db);
   //@@ public route api/users
   //get all users
   router.get("/", (req, res) => {
@@ -34,28 +38,21 @@ module.exports = (db) => {
 
   //@@ public route api/users
   //get a registered user with user ID + render map/home page with session cookie;
-  router.get("/:userId/sign-in", (req, res) => {
-    const queryParams = [req.params.userId];
-    const queryString = `
-    SELECT * FROM users WHERE id = $1;
-    `;
-    db.query(queryString, queryParams)
-      .then((data) => {
-        const user = data.rows[0];
-        res.json(user);
-        req.session.userId = req.params.userId;
-        console.log(req.session.userId);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+  router.post("/:userId/sign-in", (req, res) => {
+    getUserWithUserId(req.params.userId).then((user) => {
+      if (!user) {
+        return res.status(400).json("no user found");
+      }
+      req.session.userId = user.id;
+      res.json(user);
+    });
   });
 
   //@@ private route api/users
   //sign out user and clear cookie
-  router.get("/:userId/sign-out", (req, res) => {
+  router.post("/:userId/sign-out", (req, res) => {
     req.session = null;
-    res.send("user has signed out");
+    res.render("index", { user: null });
   });
 
   return router;

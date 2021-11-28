@@ -1,7 +1,6 @@
 <nav class="navbar">
-
   <a class="logo" href="/">
-    <img src="./images/logo.png" alt="Wiki Maps" width="40px" height="40px">
+    <img src="./images/logo.png" alt="Wiki Maps" width="40px" height="40px" />
     <h1><i class="fab fa-wikipedia-w"></i>IKI MAPS</h1>
   </a>
 
@@ -13,7 +12,20 @@
       <a href="/maps/new">Create Map</a>
     </div>
     <div class="right">
-      <a href="/logout">Logout</a>
+      <% if(!user) { %>
+      <form class="sign-in-form">
+        <input type="text" name="user-id" placeholder="User ID" />
+        <button type="submit">Sign in</button>
+      </form>
+      <% } else { %>
+      <div class="user-sign-out-box">
+        <p class="signed-in-message">Hi! <%= user.name %></p>
+        <form class="sign-out-form">
+          <input hidden name='user-id' value=<%= user.id %>  />
+          <p class="sign-out-button">Sign out</p>
+        </form>
+      </div>
+      <% } %>
     </div>
 
     <!-- ejs if (!user) -->
@@ -21,5 +33,4 @@
     <a class="nav-link" href="/login">Login</a>
     <a class="nav-link" href="/register">Register</a> -->
   </div>
-
 </nav>

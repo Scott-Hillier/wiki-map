@@ -28,7 +28,12 @@ html {
   flex-flow: column;
   height: 100%;
 }
-.container, .c1, .c2, .c3, .c4, .c5 {
+.container,
+.c1,
+.c2,
+.c3,
+.c4,
+.c5 {
   width: 100%;
 }
 
@@ -49,7 +54,9 @@ html {
     align-items: center;
     width: 30%;
 
-    h1 { padding-left: 10px; }
+    h1 {
+      padding-left: 10px;
+    }
   }
 
   .nav {
@@ -78,6 +85,20 @@ html {
       align-items: center;
       height: 100%;
       width: 25%;
+      .user-sign-out-box {
+        > p {
+          margin: 0;
+        }
+        .signed-in-message {
+          font-size: 1.3em;
+        }
+        .sign-out-button {
+          margin-top: 5px;
+          cursor: pointer;
+          font-weight: lighter;
+          float: right;
+        }
+      }
     }
   }
 }
@@ -99,7 +120,6 @@ html {
   padding: 0px 15px;
 }
 
-
 // at 1014:
 // switch to mobile column view
 // at 1215:
@@ -114,7 +134,7 @@ html {
  * Extra extra large	xxl	≥1400px
  */
 
- @media only screen and (min-width: 0px) {
+@media only screen and (min-width: 0px) {
   .logo {
     font-size: 11px;
     // font-size: 100%;
@@ -128,7 +148,7 @@ html {
 //   }
 // }
 
- @media only screen and (min-width: 1024px) {
+@media only screen and (min-width: 1024px) {
   .navbar {
     width: 1024px;
     margin-left: auto;
