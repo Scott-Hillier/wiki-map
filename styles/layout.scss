@@ -38,7 +38,7 @@ html {
 }
 
 .navbar {
-  border: 2px dotted white;
+  // border: 2px dotted white;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -118,7 +118,7 @@ html {
   flex-grow: 2;
 }
 .c3 {
-  height: 200px;
+  // height: 200px;
   display: flex;
   justify-content: center;
   flex-grow: 2;
@@ -128,45 +128,4 @@ html {
   padding: 0px 15px;
 }
 
-// at 1014:
-// switch to mobile column view
-// at 1215:
-// logo stays, but header disappears, hamburger appears
-// at 1455:
-// header stops resizing
-// but body img continues to scale
-
-/* breakpoints
- * Medium	md	≥768px
- * Extra large	xl	≥1200px
- * Extra extra large	xxl	≥1400px
- */
-
-@media only screen and (min-width: 0px) {
-  .logo {
-    font-size: 11px;
-    // font-size: 100%;
-  }
-}
-
-//  @media only screen and (min-width: 850px) {
-//   .logo {
-//     // font-size: 1vw;
-//     font-size: 100%;
-//   }
-// }
-
-@media only screen and (min-width: 1024px) {
-  .navbar {
-    width: 1024px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
-@media only screen and (min-height: 1000px) {
-  .c2 {
-    flex-grow: 0;
-    height: 535px;
-  }
-}
+#map { height: 180px; }
