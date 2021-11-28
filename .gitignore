@@ -4,3 +4,4 @@ public/styles
 .env.example
 *.log
 *.sqlite3
+

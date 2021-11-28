@@ -1,7 +1,9 @@
 const express = require("express");
+const { getAllMaps } = require("../db/database");
 const router = express.Router();
 
 module.exports = (db) => {
+  console.log(db);
   //@@ public route api/maps
   //get all maps
   router.get("/", (req, res) => {
@@ -47,7 +49,7 @@ module.exports = (db) => {
     const queryParams = [req.params.userId];
     const queryString = `
     SELECT * FROM maps JOIN users ON users.id = maps.user_id WHERE users.id = $1;
-    `;
+    `, queryParams;
 
     db.query(queryString, queryParams)
       .then((data) => {
