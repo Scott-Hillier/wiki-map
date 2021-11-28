@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = (db) => {
   //@@ private route api/profiles
   //auth user favourites/contributes a map
-  router.POST("/:userId/:mapId", (req, res) => {
+  router.post("/:userId/:mapId", (req, res) => {
     const mapId = req.params.mapId;
     const userId = req.params.userId;
     const queryParams = [userId, mapId];
