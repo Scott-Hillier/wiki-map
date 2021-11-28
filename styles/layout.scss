@@ -15,41 +15,130 @@
 //   @include border-mixin();
 // }
 
-// body,
-// html {
-//   margin: 0;
-// }
+body,
+html {
+  // border: 2px dotted green;
+  margin: 0;
+  height: 100%;
+}
 
 .container {
   display: -webkit-flex;
   display: flex;
-  -webkit-flex-flow: row wrap;
-  flex-flow: row wrap;
+  flex-flow: column;
+  height: 100%;
 }
-
-.c1, .c2, .c3, .c4, .c5 {
+.container, .c1, .c2, .c3, .c4, .c5 {
   width: 100%;
 }
 
-.c5 {
+.navbar {
+  border: 2px dotted white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 65px;
+  padding: 0px 30px;
+  // position: fixed;
+
+  .logo {
+    // border: 2px dotted red;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 30%;
+
+    h1 { padding-left: 10px; }
+  }
+
+  .nav {
+    // border: 2px dotted red;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 70%;
+
+    .left {
+      // border: 2px dotted white;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      height: 100%;
+      width: 75%;
+    }
+    .right {
+      // border: 2px dotted white;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+      width: 25%;
+    }
+  }
+}
+
+.c2 {
+  // height: 600px;
   display: flex;
   justify-content: center;
+  flex-grow: 2;
+}
+.c3 {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  flex-grow: 2;
+}
+.c5 {
+  height: 65px;
+  padding: 0px 15px;
 }
 
-/* breakpoints */
-@media (min-width: 600px) {
-  .c1 {
-    width: 20%;
-  }
-  .c4 {
-    width: 80%;
+
+// at 1014:
+// switch to mobile column view
+// at 1215:
+// logo stays, but header disappears, hamburger appears
+// at 1455:
+// header stops resizing
+// but body img continues to scale
+
+/* breakpoints
+ * Medium	md	≥768px
+ * Extra large	xl	≥1200px
+ * Extra extra large	xxl	≥1400px
+ */
+
+ @media only screen and (min-width: 0px) {
+  .logo {
+    font-size: 11px;
+    // font-size: 100%;
   }
 }
 
-@media only screen and (min-width: 1024px) {
-  .container {
+//  @media only screen and (min-width: 850px) {
+//   .logo {
+//     // font-size: 1vw;
+//     font-size: 100%;
+//   }
+// }
+
+ @media only screen and (min-width: 1024px) {
+  .navbar {
     width: 1024px;
     margin-left: auto;
     margin-right: auto;
+  }
+}
+
+@media only screen and (min-height: 1000px) {
+  .c2 {
+    flex-grow: 0;
+    height: 535px;
   }
 }
