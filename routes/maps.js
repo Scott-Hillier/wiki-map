@@ -7,6 +7,7 @@ module.exports = (db) => {
   //@@ public route api/maps
   //get all maps
   router.get("/", (req, res) => {
+    console.log("HIT");
     const queryString = `
     SELECT * FROM maps;
     `;

@@ -8,6 +8,7 @@
 const express = require("express");
 const { render } = require("sass");
 const router = express.Router();
+// const databaseFunctions = require("../db/database");
 
 // const checkAuth = require("../auth-middleware/auth-middleware");
 
@@ -16,18 +17,7 @@ module.exports = (db) => {
   //get all users
   router.get("/", (req, res) => {
     console.log("HEY");
-    const queryString = `
-    SELECT * FROM users;
-    `;
-
-    db.query(queryString)
-      .then((data) => {
-        const users = data.rows;
-        res.json(users);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    db.getAllMaps();
   });
 
   // //@@ public route api/

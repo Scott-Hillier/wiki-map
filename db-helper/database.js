@@ -14,6 +14,17 @@ const getAllMaps = function () {
 };
 exports.getAllMaps = getAllMaps;
 
+const getAllAvailableMaps = function () {
+  return db
+    .query(
+      `
+      SELECT * FROM maps WHERE isPrivate = FALSE;`
+    )
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+exports.getAllMaps = getAllAvailableMaps;
+
 const getSingleMap = function (mapId) {
   return db
     .query(
@@ -158,5 +169,6 @@ const deletePoint = function (point_id) {
 exports.deletePoint = deletePoint;
 
 const getProfileMaps = function (user_id) {
-  return db.query(`SELECT `);
+  return db.query(`SELECT * FROM profiles WHERE user_id = $1;`, [user_id]);
 };
+exports.getProfileMaps = getProfileMaps;
