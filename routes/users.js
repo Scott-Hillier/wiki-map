@@ -6,7 +6,6 @@
  */
 
 const express = require("express");
-const { render } = require("sass");
 const router = express.Router();
 
 // const checkAuth = require("../auth-middleware/auth-middleware");
@@ -46,7 +45,6 @@ module.exports = (db) => {
         res.json(user);
         req.session.userId = req.params.userId;
         console.log(req.session.userId);
-        render("index");
       })
       .catch((err) => {
         res.status(500).json({ error: err.message });
