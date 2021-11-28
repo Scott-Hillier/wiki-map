@@ -28,7 +28,12 @@ html {
   flex-flow: column;
   height: 100%;
 }
-.container, .c1, .c2, .c3, .c4, .c5 {
+.container,
+.c1,
+.c2,
+.c3,
+.c4,
+.c5 {
   width: 100%;
 }
 
@@ -49,7 +54,9 @@ html {
     align-items: center;
     width: 30%;
 
-    h1 { padding-left: 10px; }
+    h1 {
+      padding-left: 10px;
+    }
   }
 
   .nav {
@@ -78,6 +85,28 @@ html {
       align-items: center;
       height: 100%;
       width: 25%;
+
+      .sign-in-form {
+        > button {
+          float: right;
+        }
+      }
+
+      .sign-out-box {
+        > p {
+          margin: 0;
+        }
+        .signed-in-message {
+          font-size: 1.3em;
+        }
+
+        .sign-out-button {
+          margin-top: 5px;
+          cursor: pointer;
+          font-weight: lighter;
+          float: right;
+        }
+      }
     }
   }
 }

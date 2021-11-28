@@ -40,26 +40,26 @@ app.use(
 
 app.use(express.static("public"));
 
-// Separated Routes for each Resource
-// Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
-const mapsRoutees = require("./routes/maps");
-const pointsRoutees = require("./routes/points");
-const profilesRoutees = require("./routes/profiles");
+const usersRoutes = require("./routes/users.route");
+const mapsRoutees = require("./routes/maps.route");
+const pointsRoutees = require("./routes/points.route");
+const profilesRoutees = require("./routes/profiles.route");
+
+const userDataHelper = require("./db-helper/user.helper");
+const { getUserWithUserId } = userDataHelper(db);
 
 // Mount all resource routes
-// Note: Feel free to replace the example routes below with your own
 app.use("/api/users", usersRoutes(db));
 app.use("/api/maps", mapsRoutees(db));
 app.use("/api/points", pointsRoutees(db));
 app.use("/api/profiles", profilesRoutees(db));
 
 // Home page
-// Warning: avoid creating more routes in this file!
-// Separate them into separate routes files (see above).
-
 app.get("/", (req, res) => {
-  res.render("index");
+  getUserWithUserId(req.session.userId).then((user) => {
+    console.log(user);
+    res.render("index", { user: user });
+  });
 });
 
 app.listen(PORT, () => {
