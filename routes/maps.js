@@ -8,18 +8,7 @@ module.exports = (db) => {
   //get all maps
   router.get("/", (req, res) => {
     console.log("HIT");
-    const queryString = `
-    SELECT * FROM maps;
-    `;
-
-    db.query(queryString)
-      .then((data) => {
-        const maps = data.rows;
-        res.json(maps);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    getAllMaps(db).then((data)=> console.log(data));
   });
 
   //@@ public route api/

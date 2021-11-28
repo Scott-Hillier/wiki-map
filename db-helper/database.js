@@ -1,9 +1,15 @@
-const { query } = require("express");
-const { Pool } = require("pg");
-const dbParams = require("./lib/db.js");
-const db = new Pool(dbParams);
+const getAllUsers = function (db) {
+  return db
+    .query(
+      `
+      SELECT * FROM users;`
+    )
+    .then((result) => result.rows)
+    .catch((err) => console.log(err.message));
+};
+exports.getAllUsers = getAllUsers;
 
-const getAllMaps = function () {
+const getAllMaps = function (db) {
   return db
     .query(
       `
@@ -14,7 +20,7 @@ const getAllMaps = function () {
 };
 exports.getAllMaps = getAllMaps;
 
-const getAllAvailableMaps = function () {
+const getAllAvailableMaps = function (db) {
   return db
     .query(
       `
@@ -23,9 +29,9 @@ const getAllAvailableMaps = function () {
     .then((result) => result.rows)
     .catch((err) => console.log(err.message));
 };
-exports.getAllMaps = getAllAvailableMaps;
+exports.getAllAvailableMaps = getAllAvailableMaps;
 
-const getSingleMap = function (mapId) {
+const getUserMap = function (mapId, db) {
   return db
     .query(
       `
@@ -35,9 +41,9 @@ const getSingleMap = function (mapId) {
     .then((result) => result.rows[0])
     .catch((err) => console.log(err.message));
 };
-exports.getSingleMap = getSingleMap;
+exports.getUserMap = getUserMap;
 
-const createMap = function (options) {
+const createMap = function (options, db) {
   return db
     .query(
       `INSERT INTO maps(user_id, name, isPrivate)
@@ -49,14 +55,14 @@ const createMap = function (options) {
 };
 exports.createMap = createMap;
 
-const deleteMap = function (map_id) {
+const deleteMap = function (map_id, db) {
   return db
     .query(`DELETE FROM maps WHERE map_id = $1;`, [map_id])
     .catch((err) => console.log(err.message));
 };
 exports.deleteMap = deleteMap;
 
-const favoriteMap = function (map_id, status) {
+const favoriteMap = function (map_id, status, db) {
   return db
     .query(`UPDATE profiles SET isFavorite = $1 WHERE id = $2;`, [
       status,
@@ -66,14 +72,14 @@ const favoriteMap = function (map_id, status) {
 };
 exports.favoriteMap = favoriteMap;
 
-const addPoint = function (point) {
+const addPoint = function (point, map_id, db) {
   return (db.query(`
   INSERT INTO points(map_id, title, description, image, latitude, longitude, address, type)
   VALUES($1, $2, $3, $4, $5, $6, $7, $8)
   RETURNING *;
   `),
   [
-    point.map_id,
+    map_id,
     point.title,
     point.description,
     point.image,
@@ -87,18 +93,18 @@ const addPoint = function (point) {
 };
 exports.addPoint = addPoint;
 
-// options is an object with the changes the user wants to implement
-const editPoint = function (options, point_id) {
+// point is an object with the changes the user wants to implement
+const editPoint = function (point, point_id, db) {
   const queryParams = [];
   let queryString = `UPDATE points`;
 
-  if (options.title) {
-    queryParams.push(options.title);
+  if (point.title) {
+    queryParams.push(point.title);
     queryString += `SET title = $2`;
   }
 
-  if (options.description) {
-    queryParams.push(options.description);
+  if (point.description) {
+    queryParams.push(point.description);
     if (queryParams.length === 0) {
       queryString += `SET description=$${queryParams.length}`;
     } else {
@@ -106,8 +112,8 @@ const editPoint = function (options, point_id) {
     }
   }
 
-  if (options.image) {
-    queryParams.push(options.image);
+  if (point.image) {
+    queryParams.push(point.image);
     if (queryParams.length === 0) {
       queryString += `SET image=$${queryParams.length}`;
     } else {
@@ -115,8 +121,8 @@ const editPoint = function (options, point_id) {
     }
   }
 
-  if (options.latitude) {
-    queryParams.push(options.latitude);
+  if (point.latitude) {
+    queryParams.push(point.latitude);
     if (queryParams.length === 0) {
       queryString += `SET latitude=$${queryParams.length}`;
     } else {
@@ -124,8 +130,8 @@ const editPoint = function (options, point_id) {
     }
   }
 
-  if (options.longitude) {
-    queryParams.push(options.longitude);
+  if (point.longitude) {
+    queryParams.push(point.longitude);
     if (queryParams.length === 0) {
       queryString += `SET longitude=$${queryParams.length}`;
     } else {
@@ -133,8 +139,8 @@ const editPoint = function (options, point_id) {
     }
   }
 
-  if (options.address) {
-    queryParams.push(options.address);
+  if (point.address) {
+    queryParams.push(point.address);
     if (queryParams.length === 0) {
       queryString += `SET address=$${queryParams.length}`;
     } else {
@@ -142,8 +148,8 @@ const editPoint = function (options, point_id) {
     }
   }
 
-  if (options.type) {
-    queryParams.push(options.type);
+  if (point.type) {
+    queryParams.push(point.type);
     if (queryParams.length === 0) {
       queryString += `SET type=$${queryParams.length}`;
     } else {
@@ -161,14 +167,14 @@ const editPoint = function (options, point_id) {
 };
 exports.editPoint = editPoint;
 
-const deletePoint = function (point_id) {
+const deletePoint = function (point_id, db) {
   return db
     .query(`DELETE FROM maps WHERE id = $1;`, [point_id])
     .catch((err) => console.log(err.message));
 };
 exports.deletePoint = deletePoint;
 
-const getProfileMaps = function (user_id) {
+const getProfileMaps = function (user_id, db) {
   return db.query(`SELECT * FROM profiles WHERE user_id = $1;`, [user_id]);
 };
 exports.getProfileMaps = getProfileMaps;
