@@ -10,9 +10,12 @@
 
       <div class="c2">
         <div class="map-list">
-          <% for (const map of maps) { %>
-          <p><%=map.name%></p>
-          <% } %>
+          <h3>MAPS</h3>
+          <div>
+            <% for (const map of maps) { %>
+            <p><%=map.name%></p>
+            <% } %>
+          </div>
         </div>
         <div class="map" id="map"></div>
       </div>
