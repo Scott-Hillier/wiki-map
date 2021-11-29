@@ -16,13 +16,13 @@ module.exports = (db) => {
   //@@ public route api/points
   //get all point from a map
   router.get("/:mapId", (req, res) => {
-    getAllPointsFromMap(req.body, db).then((data) => res.json(data));
+    getAllPointsFromMap(req.session, db).then((data) => res.json(data));
   });
 
   //@@ public route api/points
   //get a point with map ID && point ID
   router.get("/:mapId/:pointId", (req, res) => {
-    getSinglePoint(req.body.mapId, req.body.pointId, db).then((data) =>
+    getSinglePoint(req.session.mapId, req.body.pointId, db).then((data) =>
       res.json(data)
     );
   });
