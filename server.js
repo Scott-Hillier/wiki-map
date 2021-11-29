@@ -64,7 +64,7 @@ app.get("/", (req, res) => {
       return res.render("index", { user: null, maps: maps });
     });
   }
-  
+
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),

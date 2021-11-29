@@ -87,6 +87,28 @@ form.new-map {
   }
 }
 
+.profile-page {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #2d82b7;
+}
+
+.profile-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  flex-basis: 25%;
+}
+
+.profile-map-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
 #map {
   border: 2px dotted white;
   width: 100%;
