@@ -1,10 +1,12 @@
 /* eslint-disable no-undef */
 $(document).ready(() => {
   // user sign in
+  console.log("header script");
   $(".sign-in-form").on("submit", (event) => {
     event.preventDefault();
 
     const inputValue = $(".sign-in-form >input").val();
+    console.log(inputValue);
     $.ajax({ type: "POST", url: `api/users/${inputValue}/sign-in` }).then(
       () => {
         window.location.reload(); //relaod upon sign in
