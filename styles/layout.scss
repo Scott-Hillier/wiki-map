@@ -38,18 +38,53 @@ html {
 }
 
 .c2 {
+  border: 2px dotted white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1.5;
+  h2 {
+    // border: 2px dotted white;
+    margin: 0.5em;
+  }
 }
-
 .c3 {
   display: flex;
   justify-content: center;
   flex-grow: 1;
 }
 .c5 {
+  border: 2px dotted white;
   height: 65px;
   padding: 0px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-container {
+  border: 2px dotted red;
+  width: 100%;
+  height: 450px;
+  display: flex;
+  flex-direction: row;
+
+  .map-list {
+    // border: 2px dotted white;
+    background-color: rgba(0, 0, 0, 0.612);
+    opacity: 60%;
+    padding: 0px 15px;
+    width: 120px;
+    h3 {
+      // border: 2px dotted white;
+    }
+  }
+  #map {
+    // border: 2px dotted white;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 form.new-map {

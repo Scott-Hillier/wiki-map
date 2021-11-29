@@ -26,17 +26,24 @@
     margin-left: auto;
     margin-right: auto;
   }
-  #map {
+  .map-container {
     width: 1024px;
+  }
+  #map {
+    // width: 1024px;
   }
 }
 
-@media only screen and (min-height: 555px) {
-  .c2 {
-    flex-grow: 0;
-    height: 600px;
-  }
-  #map {
+@media only screen and (min-height: 660px) {
+  // .c2 {
+  //   flex-grow: 0;
+  //   height: 600px;
+  // }
+  .map-container {
     height: 100%;
   }
+
+  // #map {
+  //   height: 100%;
+  // }
 }
