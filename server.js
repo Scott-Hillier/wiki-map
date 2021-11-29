@@ -42,18 +42,18 @@ app.use(
 app.use(express.static("public"));
 
 const usersRoutes = require("./routes/users.route");
-const mapsRoutees = require("./routes/maps.route");
-const pointsRoutees = require("./routes/points.route");
-const profilesRoutees = require("./routes/profiles.route");
+const mapsRoutes = require("./routes/maps.route");
+// const pointsRoutes = require("./routes/points.route");
+// const profilesRoutes = require("./routes/profiles.route");
 
 const userDataHelper = require("./db-helper/user.helper");
 const { getUserWithUserId } = userDataHelper(db);
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(db));
-app.use("/api/maps", mapsRoutees(db));
-app.use("/api/points", pointsRoutees(db));
-app.use("/api/profiles", profilesRoutees(db));
+app.use("/api/maps", mapsRoutes(db));
+// app.use("/api/points", pointsRoutes(db));
+// app.use("/api/profiles", profilesRoutes(db));
 
 // Home page
 app.get("/", (req, res) => {
