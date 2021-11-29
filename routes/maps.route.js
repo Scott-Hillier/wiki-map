@@ -5,12 +5,21 @@ const userDataHelper = require("../db-helper/user.helper");
 
 module.exports = (db) => {
   const { getUserWithUserId } = userDataHelper(db);
-  // creat map page
+
+  // view maps page
+  router.get("/", (req, res) => {
+    getUserWithUserId(req.session.userId).then((user) => {
+      res.render("maps", { user: user });
+    });
+  });
+
+  // create map page
   router.get("/new", (req, res) => {
     getUserWithUserId(req.session.userId).then((user) => {
       res.render("create_map", { user: user });
     });
   });
+
 
   // //@@ public route api/maps
   // //get all maps

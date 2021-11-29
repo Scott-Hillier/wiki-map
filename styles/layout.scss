@@ -17,7 +17,7 @@
 
 body,
 html {
-  // border: 2px dotted green;
+  // border: 2px dotted white;
   margin: 0;
   height: 100%;
 }
@@ -38,7 +38,7 @@ html {
 }
 
 .c2 {
-  border: 2px dotted white;
+  // border: 2px dotted white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -53,23 +53,6 @@ html {
   height: 65px;
   padding: 0px 15px;
 }
-
-
-// .form-new-map {
-  // .form-radio-isPrivate {
-  //   border: 2px dotted white;
-  //   display: flex;
-  //   flex-direction: row;
-
-  //   .form-radio-items {
-  //     border: 2px dotted white;
-  //     margin-left: 25px;
-  //     display: flex;
-  //     justify-content: space-evenly;
-  //     align-items: center;
-  //   }
-  // }
-// }
 
 
 form.new-map {
@@ -97,7 +80,7 @@ form.new-map {
       flex-direction: row;
       justify-content: space-evenly;
       align-items: center;
-      margin-left: 1em;
+      margin: 1em;
     }
   }
 
@@ -106,9 +89,6 @@ form.new-map {
     text-align: center;
   }
 }
-
-
-
 
 
 #map {
