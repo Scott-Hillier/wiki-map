@@ -1,2 +1,10 @@
 // Client facing scripts here
-var map = L.map('map').setView([51.505, -0.09], 13);
+
+
+// sidenav open/close
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
