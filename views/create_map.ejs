@@ -9,6 +9,35 @@
       <div class="c1"><header><%- include('partials/_header') %></header></div>
 
       <div class="c2">
+        <h2>Create New Map</h2>
+
+
+        <form class="new-map" method="POST" action="/new-map">
+
+          <div class="form-field">
+            <label for="new-map-name">Enter map name:</label>
+            <input type="text" id="new-map-name" placeholder="e.g. Best Places to Eat Around Town!">
+          </div><br>
+
+          <div class="form-field">
+            <span>Set map privacy:</span>
+            <div class="form-radio">
+              <div class="radio-item">
+                <input type="radio" id="form-private" name="isPrivate" value="TRUE">
+                <label for="form-private">Private</label>
+              </div>
+              <div class="radio-item">
+                <input type="radio" id="form-public" name="isPrivate" value="FALSE">
+                <label for="form-public">Public</label>
+              </div>
+            </div>
+          </div><br>
+
+          <div class="form-submit">
+            <button type="submit">Submit</button>
+          </div>
+
+        </form>
 
       </div>
 
