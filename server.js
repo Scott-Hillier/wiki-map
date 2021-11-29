@@ -50,7 +50,7 @@ app.use("/api/profiles", profilesRoutees(db));
 
 // Home page
 app.get("/", (req, res) => {
-  if (!req.session.userId) {
+  if (!req.session) {
     return res.render("index", { user: null });
   }
   getUserWithUserId(req.session.userId).then((user) => {
