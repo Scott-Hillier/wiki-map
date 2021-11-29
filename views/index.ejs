@@ -9,14 +9,18 @@
       <div class="c1"><header><%- include('partials/_header') %></header></div>
 
       <div class="c2">
-        <div id="map"></div>
-        <script type="text/javascript" src="/scripts/map.script.js"></script>
-
+        <div class="map-list">
+          <% for (const map of maps) { %>
+          <p><%=map.name%></p>
+          <% } %>
+        </div>
+        <div class="map" id="map"></div>
       </div>
 
       <div class="c3">class: c3</div>
       <div class="c4">class: c4</div>
       <div class="c5"><footer><%- include('partials/_footer') %></footer></div>
     </div>
+    <script type="text/javascript" src="/scripts/map.script.js"></script>
   </body>
 </html>

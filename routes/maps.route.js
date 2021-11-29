@@ -2,10 +2,13 @@ const express = require("express");
 const router = express.Router();
 
 const userDataHelper = require("../db-helper/user.helper");
+const mapDataHelper = require("../db-helper/map.helper");
 
 module.exports = (db) => {
   const { getUserWithUserId } = userDataHelper(db);
+  const { getAllPublicMaps } = mapDataHelper(db);
 
+  //@@ PRIVATE /maps
   // view maps page
   router.get("/", (req, res) => {
     getUserWithUserId(req.session.userId).then((user) => {
@@ -13,13 +16,19 @@ module.exports = (db) => {
     });
   });
 
-  // create map page
+  //@@ PRIVATE /maps
+  // view create map page
   router.get("/new", (req, res) => {
     getUserWithUserId(req.session.userId).then((user) => {
       res.render("create_map", { user: user });
     });
   });
 
+  //@@ PUBLIC /maps
+  //get all public maps including user's maps if authenticated
+  router.get("/public-maps", (req, res) => {
+    getAllPublicMaps(req.session.userId).then((data) => res.json(data));
+  });
 
   // //@@ public route api/maps
   // //get all maps
