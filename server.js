@@ -60,20 +60,20 @@ app.use("/maps", mapsRoutes(db));
 // Home page
 app.get("/", (req, res) => {
   if (!req.session.userId) {
-    getAllPublicMaps().then((maps) => {
+    return getAllPublicMaps().then((maps) => {
       return res.render("index", { user: null, maps: maps });
     });
   }
-  
+
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
-  ]).then((data) =>
+  ]).then((data) => {
     res.render("index", {
       user: data[0],
       maps: data[1],
-    })
-  );
+    });
+  });
 });
 
 app.listen(PORT, () => {

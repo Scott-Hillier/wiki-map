@@ -10,7 +10,7 @@
 // }
 
 $(document).ready(() => {
-  $.ajax({ type: "GET", url: `/maps/public-maps` }).then((mapsArr) => {
-    console.log(mapsArr);
-  });
+  // $.ajax({ type: "GET", url: `/maps/public-maps` }).then((mapsArr) => {
+  //   console.log(mapsArr);
+  // });
 });
