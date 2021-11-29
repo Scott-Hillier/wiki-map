@@ -66,6 +66,13 @@ app.get("/", (req, res) => {
   });
 });
 
+// creat map page
+app.get("/maps/new", (req, res) => {
+  getUserWithUserId(req.session.userId).then((user) => {
+    res.render("create_map", { user: user });
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
