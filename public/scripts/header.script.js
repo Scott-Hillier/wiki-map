@@ -7,11 +7,9 @@ $(document).ready(() => {
 
     const inputValue = $(".sign-in-form >input").val();
     console.log(inputValue);
-    $.ajax({ type: "POST", url: `api/users/${inputValue}/sign-in` }).then(
-      () => {
-        window.location.reload(); //relaod upon sign in
-      }
-    );
+    $.ajax({ type: "POST", url: `/users/${inputValue}/sign-in` }).then(() => {
+      window.location.reload(); //relaod upon sign in
+    });
   });
 
   // user sign out
@@ -19,10 +17,8 @@ $(document).ready(() => {
     event.preventDefault();
 
     const inputValue = $(".sign-out-form >input").val();
-    $.ajax({ type: "POST", url: `api/users/${inputValue}/sign-out` }).then(
-      () => {
-        window.location.reload(); //relaod upon sign out
-      }
-    );
+    $.ajax({ type: "POST", url: `/users/${inputValue}/sign-out` }).then(() => {
+      window.location.reload(); //relaod upon sign out
+    });
   });
 });
