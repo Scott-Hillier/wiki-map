@@ -26,17 +26,17 @@ module.exports = (db) => {
 
   //@@ public route api/users
   //get a registered user with user ID + render map/home page with session cookie;
-  router.get("/:userId/sign-in", (req, res) => {
-    console.log("getUserMap");
-    getUserMap(db).then((data) => console.log(data));
-  });
+  // router.get("/:userId/sign-in", (req, res) => {
+  //   console.log("getUserMap");
+  //   getUserMap(db).then((data) => console.log(data));
+  // });
 
-  //@@ private route api/users
-  //sign out user and clear cookie
-  router.get("/:userId/sign-out", (req, res) => {
-    req.session = null;
-    res.send("user has signed out");
-  });
+  // //@@ private route api/users
+  // //sign out user and clear cookie
+  // router.get("/:userId/sign-out", (req, res) => {
+  //   req.session = null;
+  //   res.send("user has signed out");
+  // });
 
   return router;
 };
