@@ -50,8 +50,8 @@ const userDataHelper = require("./db-helper/user.helper");
 const { getUserWithUserId } = userDataHelper(db);
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(db));
-app.use("/api/maps", mapsRoutes(db));
+app.use("/users", usersRoutes(db));
+app.use("/maps", mapsRoutes(db));
 // app.use("/api/points", pointsRoutes(db));
 // app.use("/api/profiles", profilesRoutes(db));
 
@@ -63,13 +63,6 @@ app.get("/", (req, res) => {
   getUserWithUserId(req.session.userId).then((user) => {
     console.log(user);
     res.render("index", { user: user });
-  });
-});
-
-// creat map page
-app.get("/maps/new", (req, res) => {
-  getUserWithUserId(req.session.userId).then((user) => {
-    res.render("create_map", { user: user });
   });
 });
 
