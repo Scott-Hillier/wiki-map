@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 $(document).ready(() => {
   const mapboxUrl =
@@ -55,7 +56,7 @@ $(document).ready(() => {
   circle1.bindPopup("I am a circle.");
   polygon1.bindPopup("I am a polygon.");
 
-  let popup = L.popup()
+  L.popup()
     .setLatLng([49.25785, -123.098969])
     .setContent("I am a standalone popup.")
     .openOn(map);
