@@ -6,9 +6,9 @@ $(document).ready(() => {
 
   const marker1 = L.marker([49.287188, -123.07586]);
   const marker2 = L.marker([49.267825, -123.099969]);
-  const vancouverLayer = L.layerGroup([marker1, marker2]);
+  const vancouverOverlay = L.layerGroup([marker1, marker2]);
 
-  const testLayer = L.tileLayer(mapboxUrl, {
+  const streetview = L.tileLayer(mapboxUrl, {
     maxZoom: 18,
     attribution: "Wiki Maps &copy;",
     id: "mapbox/streets-v11",
@@ -24,19 +24,14 @@ $(document).ready(() => {
   });
 
   const map = L.map("map", {
-    layers: [testLayer, satellite, vancouverLayer],
+    layers: [streetview, satellite, vancouverOverlay],
   }).setView([49.2827, -123.1207], 13);
 
-  const baseMaps = {
-    Streetview: testLayer,
-    Satellite: satellite,
-  };
-
-  const overlayMaps = {
-    Vancouverlayer: vancouverLayer,
-  };
+  const baseMaps = { satellite, streetview };
+  const overlayMaps = { vancouverOverlay };
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
+
 
   const circle1 = L.circle([49.267825, -123.099969], {
     color: "green",
@@ -72,9 +67,4 @@ $(document).ready(() => {
 
   map.on("click", onMapClick);
 
-  // var map = L.map("map", {
-  //   center: [39.73, -104.99],
-  //   zoom: 10,
-  //   layers: [grayscale, cities],
-  // });
 });
