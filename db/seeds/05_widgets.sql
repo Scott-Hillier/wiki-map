@@ -5,7 +5,7 @@ VALUES
   (2, 'Favourite Parks', FALSE),
   (3, 'Famous Movie Scenes', TRUE),
   (4, 'Location of Every McDonalds', TRUE),
-  (1, 'Every Hotel', TRUE),
+  (5, 'Every Hotel', TRUE),
   (1, 'Landmarks', FALSE);
 
 INSERT INTO points (map_id, title, description, image, latitude, longitude, address, type)

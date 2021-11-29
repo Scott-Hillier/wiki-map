@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 $(document).ready(() => {
   // user sign in
-  console.log("header script");
   $(".sign-in-form").on("submit", (event) => {
     event.preventDefault();
 

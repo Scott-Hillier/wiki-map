@@ -6,6 +6,9 @@ $(document).ready(() => {
 
   const marker1 = L.marker([49.287188, -123.07586]);
   const marker2 = L.marker([49.267825, -123.099969]);
+  marker1.bindPopup("<b>Hello world!</b><br>I am a popup.");
+  marker2.bindPopup("<b>Hello world!</b><br>I am a good place.");
+
   const vancouverOverlay = L.layerGroup([marker1, marker2]);
 
   const streetview = L.tileLayer(mapboxUrl, {
@@ -32,33 +35,8 @@ $(document).ready(() => {
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-
-  const circle1 = L.circle([49.267825, -123.099969], {
-    color: "green",
-    fillColor: "#f03",
-    fillOpacity: 0.5,
-    radius: 500,
-  }).addTo(map);
-
-  const polygon1 = L.polygon([
-    [49.268825, -123.097969],
-    [49.26785, -123.098969],
-    [49.269825, -123.090969],
-  ]).addTo(map);
-
-  marker1.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-  marker2.bindPopup("<b>Hello world!</b><br>I am a good place.").openPopup();
-  circle1.bindPopup("I am a circle.");
-  polygon1.bindPopup("I am a polygon.");
-
-  L.popup()
-    .setLatLng([49.25785, -123.098969])
-    .setContent("I am a standalone popup.")
-    .openOn(map);
-
-  const popupClick = L.popup();
-
   const onMapClick = (e) => {
+    const popupClick = L.popup();
     popupClick
       .setLatLng(e.latlng)
       .setContent("You clicked the map at " + e.latlng.toString())
@@ -67,4 +45,24 @@ $(document).ready(() => {
 
   map.on("click", onMapClick);
 
+  // const circle1 = L.circle([49.267825, -123.099969], {
+  //   color: "green",
+  //   fillColor: "#f03",
+  //   fillOpacity: 0.5,
+  //   radius: 500,
+  // }).addTo(map);
+
+  // const polygon1 = L.polygon([
+  //   [49.268825, -123.097969],
+  //   [49.26785, -123.098969],
+  //   [49.269825, -123.090969],
+  // ]).addTo(map);
+
+  // circle1.bindPopup("I am a circle.");
+  // polygon1.bindPopup("I am a polygon.");
+
+  // L.popup()
+  //   .setLatLng([49.25785, -123.098969])
+  //   .setContent("I am a standalone popup.")
+  //   .openOn(map);
 });
