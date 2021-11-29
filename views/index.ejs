@@ -4,32 +4,52 @@
     <%- include('partials/_head') %>
   </head>
 
-<body>
-  <div class="container">
-    <div class="c1"><header><%- include('partials/_header') %></header></div>
+  <body>
+    <div class="container">
+      <div class="c1"><header><%- include('partials/_header') %></header></div>
 
-    <div class="c2">
-      <!-- <p><img src="./images/map-stand-in.png" alt="Map"></p> -->
-      <div id="map" style="width: 600px; height: 400px;"></div>
-        <script>
+      <div class="c2">
+        <!-- <p><img src="./images/map-stand-in.png" alt="Map"></p> -->
+        <div id="map" style="width: 600px; height: 400px"></div>
+        <script type="text/javascript" src="/scripts/map.script.js"></script>
 
-          var map = L.map('map').setView([51.505, -0.09], 13);
+        <!-- <script>
+          var map = L.map("map").setView([49.2827, -123.1207], 13);
 
-          var tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-              'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
+          var tiles = L.tileLayer(
+            "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+            {
+              maxZoom: 18,
+              attribution:
+                'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+              id: "mapbox/streets-v11",
+              tileSize: 512,
+              zoomOffset: -1,
+            }
+          ).addTo(map);
+
+          var marker = L.marker([49.287188, -123.07586]).addTo(map);
+          var marker = L.marker([49.267825, -123.099969]).addTo(map);
+
+          var circle = L.circle([49.267825, -123.099969], {
+            color: "green",
+            fillColor: "#f03",
+            fillOpacity: 0.5,
+            radius: 500,
           }).addTo(map);
 
-        </script>
-    </div>
+          var polygon = L.polygon([
+            [49.267825, -123.099969],
+            [49.267825, -123.099969],
+            [49.267825, -123.099969],
+          ]).addTo(map);
+        </script> -->
+      </div>
 
-    <div class="c3">class: c3</div>
-    <div class="c4">class: c4</div>
-    <div class="c5"><footer><%- include('partials/_footer') %></footer></div>
-  </div>
-</body>
+      <div class="c3">class: c3</div>
+      <div class="c4">class: c4</div>
+      <div class="c5"><footer><%- include('partials/_footer') %></footer></div>
+    </div>
+  </body>
 </html>
