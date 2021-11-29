@@ -1,8 +1,37 @@
--- Drop and recreate Widgets table (Example)
+-- Drop and recreate Widgets table
 
-DROP TABLE IF EXISTS widgets CASCADE;
-CREATE TABLE widgets (
+DROP TABLE IF EXISTS maps CASCADE;
+DROP TABLE IF EXISTS points CASCADE;
+DROP TABLE IF EXISTS profiles CASCADE;
+
+CREATE TABLE maps (
   id SERIAL PRIMARY KEY NOT NULL,
-  user_id INTEGER REFERENCES users(id),
-  name VARCHAR(255) NOT NULL
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+
+  name VARCHAR(255) NOT NULL,
+  isPrivate BOOLEAN NOT NULL DEFAULT FALSE
 );
+
+CREATE TABLE points (
+  id SERIAL PRIMARY KEY NOT NULL,
+  map_id INTEGER REFERENCES maps(id) ON DELETE CASCADE,
+
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  image VARCHAR(255) NOT NULL,
+  latitude INTEGER,
+  longitude INTEGER,
+
+  address VARCHAR(255),
+  type VARCHAR(255)
+);
+
+CREATE TABLE profiles (
+  id SERIAL PRIMARY KEY NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  map_id INTEGER REFERENCES maps(id) ON DELETE CASCADE,
+
+  isFavorite BOOLEAN NOT NULL DEFAULT FALSE,
+  isContributor BOOLEAN NOT NULL DEFAULT FALSE
+);
+

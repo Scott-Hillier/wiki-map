@@ -6,7 +6,9 @@
  */
 
 const express = require("express");
+const { render } = require("sass");
 const router = express.Router();
+const { getAllUsers, getUserMap } = require("../db/database");
 
 // const checkAuth = require("../auth-middleware/auth-middleware");
 
@@ -14,18 +16,8 @@ module.exports = (db) => {
   //@@ public route api/users
   //get all users
   router.get("/", (req, res) => {
-    const queryString = `
-    SELECT * FROM users;
-    `;
-
-    db.query(queryString)
-      .then((data) => {
-        const users = data.rows;
-        res.json(users);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    console.log("getAllMaps");
+    getAllUsers(db).then((data) => console.log(data));
   });
 
   // //@@ public route api/
@@ -35,20 +27,8 @@ module.exports = (db) => {
   //@@ public route api/users
   //get a registered user with user ID + render map/home page with session cookie;
   router.get("/:userId/sign-in", (req, res) => {
-    const queryParams = [req.params.userId];
-    const queryString = `
-    SELECT * FROM users WHERE id = $1;
-    `;
-    db.query(queryString, queryParams)
-      .then((data) => {
-        const user = data.rows[0];
-        res.json(user);
-        req.session.userId = req.params.userId;
-        console.log(req.session.userId);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    console.log("getUserMap");
+    getUserMap(db).then((data) => console.log(data));
   });
 
   //@@ private route api/users

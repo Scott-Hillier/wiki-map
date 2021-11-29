@@ -28,58 +28,13 @@ html {
   flex-flow: column;
   height: 100%;
 }
-.container, .c1, .c2, .c3, .c4, .c5 {
+.container,
+.c1,
+.c2,
+.c3,
+.c4,
+.c5 {
   width: 100%;
-}
-
-.navbar {
-  // border: 2px dotted white;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 65px;
-  padding: 0px 30px;
-  // position: fixed;
-
-  .logo {
-    // border: 2px dotted red;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    width: 30%;
-
-    h1 { padding-left: 10px; }
-  }
-
-  .nav {
-    // border: 2px dotted red;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    height: 100%;
-    width: 70%;
-
-    .left {
-      // border: 2px dotted white;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: center;
-      height: 100%;
-      width: 75%;
-    }
-    .right {
-      // border: 2px dotted white;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: center;
-      height: 100%;
-      width: 25%;
-    }
-  }
 }
 
 .c2 {
