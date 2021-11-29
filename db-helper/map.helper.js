@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 module.exports = (db) => {
-  const getAllMaps = function (db) {
+  const getAllMaps = () => {
     return db
       .query(
         `
@@ -9,7 +10,7 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
-  const getAllAvailableMaps = function (db) {
+  const getAllAvailableMaps = () => {
     return db
       .query(
         `
@@ -19,7 +20,7 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
-  const getUserMaps = function (user_id, db) {
+  const getUserMaps = (user_id) => {
     return db
       .query(
         `
@@ -32,7 +33,7 @@ module.exports = (db) => {
       });
   };
 
-  const getSingleMap = function (map_id, db) {
+  const getSingleMap = (map_id) => {
     return db
       .query(
         `
@@ -45,7 +46,7 @@ module.exports = (db) => {
       });
   };
 
-  const createMap = function (options, db) {
+  const createMap = (options) => {
     return db
       .query(
         `INSERT INTO maps(user_id, name, isPrivate)
@@ -59,7 +60,7 @@ module.exports = (db) => {
       });
   };
 
-  const deleteMap = function (map_id, db) {
+  const deleteMap = (map_id) => {
     return db
       .query(`DELETE FROM maps WHERE map_id = $1;`, [map_id])
       .then((result) => result.rows)
@@ -68,7 +69,7 @@ module.exports = (db) => {
       });
   };
 
-  const favoriteMap = function (map_id, status, db) {
+  const favoriteMap = (map_id, status) => {
     return db
       .query(`UPDATE profiles SET isFavorite = $1 WHERE id = $2;`, [
         status,

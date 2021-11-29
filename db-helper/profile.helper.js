@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 module.exports = (db) => {
-  const getProfileMaps = function (user_id, db) {
+  const getProfileMaps = (user_id) => {
     return db.query(`SELECT * FROM profiles WHERE user_id = $1;`, [user_id]);
   };
 
