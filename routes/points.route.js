@@ -22,20 +22,9 @@ module.exports = (db) => {
   //@@ public route api/points
   //get a point with map ID && point ID
   router.get("/:mapId/:pointId", (req, res) => {
-    const { mapId, pointId } = req.params;
-    const queryParams = [mapId, pointId];
-    const queryString = `
-    GET A POINT FROM A MAP
-    `;
-
-    db.query(queryString, queryParams)
-      .then((data) => {
-        const userMaps = data.rows;
-        res.json(userMaps);
-      })
-      .catch((err) => {
-        res.status(500).json({ error: err.message });
-      });
+    getSinglePoint(req.body.mapId, req.body.pointId, db).then((data) =>
+      res.json(data)
+    );
   });
 
   //@@ private route api/points
