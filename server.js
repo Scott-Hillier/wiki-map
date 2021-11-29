@@ -42,35 +42,38 @@ app.use(
 app.use(express.static("public"));
 
 const usersRoutes = require("./routes/users.route");
-const mapsRoutees = require("./routes/maps.route");
-const pointsRoutees = require("./routes/points.route");
-const profilesRoutees = require("./routes/profiles.route");
+const mapsRoutes = require("./routes/maps.route");
+// const pointsRoutes = require("./routes/points.route");
+// const profilesRoutes = require("./routes/profiles.route");
 
 const userDataHelper = require("./db-helper/user.helper");
+const mapDataHelper = require("./db-helper/map.helper");
 const { getUserWithUserId } = userDataHelper(db);
+const { getAllPublicMaps } = mapDataHelper(db);
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(db));
-app.use("/api/maps", mapsRoutees(db));
-app.use("/api/points", pointsRoutees(db));
-app.use("/api/profiles", profilesRoutees(db));
+app.use("/users", usersRoutes(db));
+app.use("/maps", mapsRoutes(db));
+// app.use("/api/points", pointsRoutes(db));
+// app.use("/api/profiles", profilesRoutes(db));
 
 // Home page
 app.get("/", (req, res) => {
   if (!req.session.userId) {
-    return res.render("index", { user: null });
+    getAllPublicMaps().then((maps) => {
+      return res.render("index", { user: null, maps: maps });
+    });
   }
-  getUserWithUserId(req.session.userId).then((user) => {
-    console.log(user);
-    res.render("index", { user: user });
-  });
-});
-
-// creat map page
-app.get("/maps/new", (req, res) => {
-  getUserWithUserId(req.session.userId).then((user) => {
-    res.render("create_map", { user: user });
-  });
+  
+  Promise.all([
+    getUserWithUserId(req.session.userId),
+    getAllPublicMaps(req.session.userId),
+  ]).then((data) =>
+    res.render("index", {
+      user: data[0],
+      maps: data[1],
+    })
+  );
 });
 
 app.listen(PORT, () => {

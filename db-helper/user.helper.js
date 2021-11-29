@@ -1,24 +1,20 @@
 module.exports = (db) => {
-  const getUserWithUserId = function (user_id, db) {
+  const getUserWithUserId = (userId) => {
+    const queryParams = [userId];
+    const queryString = `
+    SELECT * FROM users WHERE id = $1;
+    `;
+
     return db
-      .query(
-        `
-        SELECT * FROM users WHERE id = $1;`,
-        [user_id]
-      )
-      .then((result) => result.rows[0])
-      .catch((err) => console.log(err.message));
+      .query(queryString, queryParams)
+      .then((data) => {
+        const user = data.rows[0];
+        return user;
+      })
+      .catch((err) => {
+        return { error: err.message };
+      });
   };
 
-  const getAllUsers = function (db) {
-    return db
-      .query(
-        `
-        SELECT * FROM users;`
-      )
-      .then((result) => result.rows)
-      .catch((err) => console.log(err.message));
-  };
-
-  return { getUserWithUserId, getAllUsers };
+  return { getUserWithUserId };
 };

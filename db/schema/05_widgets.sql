@@ -10,7 +10,7 @@ CREATE TABLE maps (
 
   name VARCHAR(255) NOT NULL,
   isPrivate BOOLEAN NOT NULL DEFAULT FALSE
-);
+)
 
 CREATE TABLE points (
   id SERIAL PRIMARY KEY NOT NULL,
@@ -19,8 +19,8 @@ CREATE TABLE points (
   title VARCHAR(255) NOT NULL,
   description TEXT,
   image VARCHAR(255) NOT NULL,
-  latitude INTEGER,
-  longitude INTEGER,
+  latitude DECIMAL(19,15) NOT NULL,
+  longitude DECIMAL(19,15) NOT NULL,
 
   address VARCHAR(255),
   type VARCHAR(255)

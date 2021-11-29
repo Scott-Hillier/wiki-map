@@ -1,4 +1,6 @@
+/* eslint-disable camelcase */
 module.exports = (db) => {
+<<<<<<< HEAD
   const getProfileMaps = function (user_id, db) {
     return db.query(
       `SELECT DISTINCT id, user_id, map_id, name, isContributor, isPrivate
@@ -7,6 +9,10 @@ module.exports = (db) => {
       WHERE user_id = $1;`,
       [user_id]
     );
+=======
+  const getProfileMaps = (user_id) => {
+    return db.query(`SELECT * FROM profiles WHERE user_id = $1;`, [user_id]);
+>>>>>>> master
   };
 
   const getFavoriteProfileMaps = function (user_id, db) {

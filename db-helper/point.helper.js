@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 module.exports = (db) => {
-  const getAllPointsFromMap = function (db) {
+  const getAllPointsFromMap = (db) => {
     return db
       .query(
         `
@@ -11,7 +12,7 @@ module.exports = (db) => {
       });
   };
 
-  const getSinglePoint = function (map_id, point_id, db) {
+  const getSinglePoint = (map_id, point_id) => {
     return db
       .query(
         `
@@ -24,7 +25,7 @@ module.exports = (db) => {
       });
   };
 
-  const addPoint = function (point, db) {
+  const addPoint = (point) => {
     return (db.query(`
     INSERT INTO points(map_id, title, description, image, latitude, longitude, address, type)
     VALUES($1, $2, $3, $4, $5, $6, $7, $8)
@@ -47,7 +48,7 @@ module.exports = (db) => {
   };
 
   // point is an object with the changes the user wants to implement
-  const editPoint = function (point, point_id, db) {
+  const editPoint = (point, point_id) => {
     const queryParams = [];
     let queryString = `UPDATE points`;
 
@@ -119,7 +120,7 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
-  const deletePoint = function (point_id, db) {
+  const deletePoint = (point_id) => {
     return db
       .query(`DELETE FROM maps WHERE id = $1;`, [point_id])
       .then((res) => res.rows)

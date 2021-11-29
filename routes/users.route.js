@@ -9,14 +9,16 @@ const express = require("express");
 const router = express.Router();
 
 const userDataHelper = require("../db-helper/user.helper");
+const mapDataHelper = require("../db-helper/map.helper");
 
 // const checkAuth = require("../auth-middleware/auth-middleware");
 
 module.exports = (db) => {
   //load helper functions
   const { getUserWithUserId } = userDataHelper(db);
+  const { getAllPublicMaps } = mapDataHelper(db);
 
-  //@@ public route api/users
+  //@@ public route /users
   //get a registered user with user ID + render map/home page with session cookie;
   router.post("/:userId/sign-in", (req, res) => {
     getUserWithUserId(req.params.userId).then((user) => {
@@ -28,11 +30,14 @@ module.exports = (db) => {
     });
   });
 
-  //@@ private route api/users
+  //@@ private route /users
   //sign out user and clear cookie
   router.post("/:userId/sign-out", (req, res) => {
     req.session = null;
-    res.render("index", { user: null });
+    
+    getAllPublicMaps().then((maps) => {
+      res.render("index", { user: null, maps: maps });
+    });
   });
 
   return router;
