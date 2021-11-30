@@ -14,16 +14,15 @@ module.exports = (db) => {
       });
   };
 
-  const getSinglePoint = (map_id, point_id) => {
+  const getPointWithMapAndPointId = (mapId, pointId) => {
+    const queryString = `
+    SELECT * FROM points WHERE map_id = ${mapId} AND id = ${pointId};
+    `;
     return db
-      .query(
-        `
-        SELECT * FROM points WHERE map_id = $1 AND id = $2;`,
-        [map_id, point_id]
-      )
-      .then((result) => result.rows)
+      .query(queryString)
+      .then((result) => result.rows[0])
       .catch((err) => {
-        res.status(500).json({ error: err.message });
+        console.log({ error: err.message });
       });
   };
 
@@ -131,7 +130,7 @@ module.exports = (db) => {
 
   return {
     getPointsWithMapId,
-    getSinglePoint,
+    getPointWithMapAndPointId,
     addPoint,
     editPoint,
     deletePoint,
