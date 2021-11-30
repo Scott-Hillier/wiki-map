@@ -43,7 +43,21 @@ $(document).ready(() => {
       .openOn(map);
   };
 
-  map.on("click", onMapClick);
+  // map.on("click", onMapClick);
+
+
+  const onRightClick = (e) => {
+    // alert(e.latlng);
+    const marker = L.marker(e.latlng).addTo(map);
+    const popup = L.popup({maxWidth:800})
+      .setLatLng(e.latlng)
+      .setContent("You right-clicked at: " + e.latlng.toString())
+      .openOn(map);
+
+    marker.bindPopup(popup).openPopup();
+
+  };
+  map.on('contextmenu', onRightClick);
 
   // const circle1 = L.circle([49.267825, -123.099969], {
   //   color: "green",
