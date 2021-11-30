@@ -1,7 +1,15 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 
-const startMap = (userMapToShow) => {
+const getMarkerArr = (pointArr) => {
+  return pointArr.map((point) => {
+    return L.marker([point.latitude, point.longitude]).bindPopup(
+      `<b>${point.title}</b><br>${point.address}`
+    );
+  });
+};
+
+const startMap = (mapData, pointArr) => {
   const mapboxUrl =
     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw";
   const streetview = L.tileLayer(mapboxUrl, {
@@ -11,24 +19,18 @@ const startMap = (userMapToShow) => {
     tileSize: 512,
     zoomOffset: -1,
   });
-
-  const marker1 = L.marker([49.287188, -123.07586]);
-  const marker2 = L.marker([49.267825, -123.099969]);
-  // const overlayMapToShow = L.layerGroup([marker1, marker2]);
-
-  const layersToShow = userMapToShow
-    ? [streetview, L.layerGroup([marker1, marker2])]
-    : [streetview];
-
+  const markerArr = pointArr ? getMarkerArr(pointArr) : [];
+  const overlayMapToShow = L.layerGroup(markerArr);
+  const layersToShow = mapData ? [streetview, overlayMapToShow] : [streetview];
   const mapToStart = L.map("map", {
     layers: layersToShow,
-  }).setView([49.2827, -123.1207], 13);
+  }).setView([49.2827, -123.1207], 12);
 
   const baseMaps = { streetview };
-  // const overlayMaps = { overlayMapToShow };
-  if (userMapToShow) {
+
+  if (mapData) {
     L.control
-      .layers(baseMaps, { [userMapToShow]: L.layerGroup([marker1, marker2]) })
+      .layers(baseMaps, { [mapData.name]: overlayMapToShow })
       .addTo(mapToStart);
   }
 
@@ -36,11 +38,6 @@ const startMap = (userMapToShow) => {
 };
 
 $(document).ready(() => {
-  // marker1.bindPopup("<b>Hello world!</b><br>I am a popup.");
-  // marker2.bindPopup("<b>Hello world!</b><br>I am a good place.");
-
-  // const vancouverOverlay = L.layerGroup([marker1, marker2]);
-
   let map;
 
   map = startMap();
@@ -96,13 +93,28 @@ $(document).ready(() => {
     const mapId = event.target.querySelector("input").value;
     console.log("mapId: ", mapId);
 
-    $.ajax({
-      type: "GET",
-      url: `/maps/${mapId}`,
-    }).then((mapData) => {
+    Promise.all([
+      $.ajax({ type: "GET", url: `/maps/${mapId}` }),
+      $.ajax({ type: "GET", url: `/points/${mapId}` }),
+    ]).then((data) => {
+      console.log(data);
+      const mapData = data[0];
+      const pointArr = data[1];
+      console.log("map: ", mapData);
+      console.log("coordinates: ", pointArr);
+
       map.remove();
       console.log("startMap is gonna fire", mapData);
-      map = startMap(mapData.name);
+      map = startMap(mapData, pointArr);
     });
+
+    // $.ajax({
+    //   type: "GET",
+    //   url: `/maps/${mapId}`,
+    // }).then((mapData) => {
+    //   map.remove();
+    //   console.log("startMap is gonna fire", mapData);
+    //   map = startMap(mapData.name);
+    // });
   });
 });

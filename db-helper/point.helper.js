@@ -1,14 +1,17 @@
 /* eslint-disable camelcase */
 module.exports = (db) => {
-  const getAllPointsFromMap = (db) => {
+  const getPointsWithMapId = (mapId) => {
+    const queryString = `
+    SELECT * FROM points WHERE map_id = ${mapId}
+    `;
     return db
-      .query(
-        `
-        SELECT * FROM points;`
-      )
-      .then((result) => result.rows)
+      .query(queryString)
+      .then((result) => {
+        console.log("points helper: ", result.rows);
+        return result.rows;
+      })
       .catch((err) => {
-        res.status(500).json({ error: err.message });
+        console.log({ error: err.message });
       });
   };
 
@@ -128,7 +131,7 @@ module.exports = (db) => {
   };
 
   return {
-    getAllPointsFromMap,
+    getPointsWithMapId,
     getSinglePoint,
     addPoint,
     editPoint,

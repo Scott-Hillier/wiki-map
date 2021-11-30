@@ -57,7 +57,7 @@ const { getFavoriteProfileMaps, getContributorProfileMaps } =
 // Mount all resource routes
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
-app.use("/api/points", pointsRoutes(db));
+app.use("/points", pointsRoutes(db));
 app.use("/profile", profilesRoutes(db));
 
 // Home page
