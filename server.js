@@ -43,7 +43,7 @@ app.use(express.static("public"));
 
 const usersRoutes = require("./routes/users.route");
 const mapsRoutes = require("./routes/maps.route");
-// const pointsRoutes = require("./routes/points.route");
+const pointsRoutes = require("./routes/points.route");
 const profilesRoutes = require("./routes/profiles.route");
 
 const userDataHelper = require("./db-helper/user.helper");
@@ -57,7 +57,7 @@ const { getFavoriteProfileMaps, getContributorProfileMaps } =
 // Mount all resource routes
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
-// app.use("/api/points", pointsRoutes(db));
+app.use("/points", pointsRoutes(db));
 app.use("/profile", profilesRoutes(db));
 
 // Home page

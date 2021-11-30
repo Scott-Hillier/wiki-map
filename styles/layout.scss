@@ -70,16 +70,7 @@ html {
   display: flex;
   flex-direction: row;
 
-  .map-list {
-    // border: 2px dotted white;
-    background-color: rgba(0, 0, 0, 0.612);
-    opacity: 60%;
-    padding: 0px 15px;
-    width: 120px;
-    h3 {
-      border: 2px dotted white;
-    }
-  }
+ 
   #map {
     // border: 2px dotted white;
     width: 100%;
