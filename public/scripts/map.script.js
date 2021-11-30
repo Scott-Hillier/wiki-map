@@ -35,29 +35,46 @@ $(document).ready(() => {
 
   L.control.layers(baseMaps, overlayMaps).addTo(map);
 
-  const onMapClick = (e) => {
-    const popupClick = L.popup();
-    popupClick
-      .setLatLng(e.latlng)
-      .setContent("You clicked the map at " + e.latlng.toString())
-      .openOn(map);
-  };
 
+  // const onMapClick = (e) => {
+  //   const popupClick = L.popup();
+  //   popupClick
+  //     .setLatLng(e.latlng)
+  //     .setContent("You clicked the map at " + e.latlng.toString())
+  //     .openOn(map);
+  // };
   // map.on("click", onMapClick);
 
 
-  const onRightClick = (e) => {
-    // alert(e.latlng);
-    const marker = L.marker(e.latlng).addTo(map);
-    const popup = L.popup({maxWidth:800})
-      .setLatLng(e.latlng)
-      .setContent("You right-clicked at: " + e.latlng.toString())
-      .openOn(map);
 
+  const onRightClick = (e) => {
+    const marker = new L.marker(e.latlng).addTo(map);
+    const popup = L.popup( {minWidth: 300} )
+      .setLatLng(e.latlng)
+      .setContent("You right-clicked at: " + e.latlng.toString());
     marker.bindPopup(popup).openPopup();
 
+    const point = {
+      mapId: 4,
+      title: 'testing',
+      description: 'test desc',
+      image: 'url',
+      latitude: e.latlng.lat,
+      longitude: e.latlng.lng,
+      address: 'test address',
+      type: 'test type',
+    }
+
+    // Ajax query to save the values:
+    $.ajax({
+      method: "POST",
+      url: '/new-point',
+      data: point,
+    })
   };
-  map.on('contextmenu', onRightClick);
+  map.on('contextmenu', onRightClick); // listener function
+
+
 
   // const circle1 = L.circle([49.267825, -123.099969], {
   //   color: "green",

@@ -3,13 +3,13 @@ const {
   addPoint,
   getAllPointsFromMap,
   getSinglePoint,
-} = require("../db-helper/database");
+} = require("../db-helper/point.helper");
 const router = express.Router();
 
 module.exports = (db) => {
   //@@ private route api/points
   //auth user adds a point in a map
-  router.post("/:mapId/new-point", (req, res) => {
+  router.post("/new-point", (req, res) => {
     addPoint(req.body, db).then((data) => res.json(data));
   });
 
