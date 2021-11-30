@@ -6,7 +6,7 @@ const mapDataHelper = require("../db-helper/map.helper");
 
 module.exports = (db) => {
   const { getUserWithUserId } = userDataHelper(db);
-  const { createMap } = mapDataHelper(db);
+  const { createMap, getMapWithMapId } = mapDataHelper(db);
 
   //@@ PRIVATE /maps
   // view maps page
@@ -36,6 +36,12 @@ module.exports = (db) => {
     });
   });
 
+  //@@ public route api/maps
+  //get a map with map ID
+  router.get("/:mapId", (req, res) => {
+    return getMapWithMapId(req.params.mapId).then((map) => res.json(map));
+  });
+
   // //@@ PUBLIC /maps
   // //get all public maps including user's maps if authenticated
   // router.get("/public-maps", (req, res) => {
@@ -55,12 +61,6 @@ module.exports = (db) => {
   // //get a registered user's maps with user ID
   // router.get("/:userId", (req, res) => {
   //   getUserMaps(req.session.userId, db).then((data) => res.json(data));
-  // });
-
-  // //@@ public route api/maps
-  // //get a map with map ID
-  // router.get("/:mapId", (req, res) => {
-  //   getSingleMap(req.session.mapId, db).then((data) => res.json(data));
   // });
 
   // //@@ private route api/maps

@@ -1,0 +1,18 @@
+.map-list {
+  background-color: rgba(0, 0, 0, 0.612);
+  opacity: 60%;
+  padding: 0px 15px;
+  width: 120px;
+
+  h3 {
+    margin: 5px auto;
+    text-align: center;
+    border-bottom: solid white 1px;
+  }
+  .map-item-box {
+    margin-bottom: 10px;
+    .map-item {
+      cursor: pointer;
+    }
+  }
+}

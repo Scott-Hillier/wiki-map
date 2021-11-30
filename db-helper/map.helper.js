@@ -31,12 +31,12 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
-  const getMapWithMapId = (map_id) => {
+  const getMapWithMapId = (mapId) => {
     return db
       .query(
         `
       SELECT * FROM maps WHERE id = $1;`,
-        [map_id]
+        [mapId]
       )
       .then((result) => result.rows[0])
       .catch((err) => console.log(err.message));

@@ -15,7 +15,16 @@
             <h3>MAPS</h3>
             <div>
               <% for (const map of maps) { %>
-              <p><%=map.name%></p>
+              <form class="map-item-box">
+                <label class="map-item"
+                  ><%=map.name%>
+                  <input
+                    hidden
+                    value="<%=map.id%>"
+                    type="submit"
+                  />
+                </label>
+              </form>
               <% } %>
             </div>
           </div>
@@ -28,7 +37,10 @@
       <div class="c4">class: c4</div>
       <div class="c5"><footer><%- include('partials/_footer') %></footer></div>
     </div>
-    <script type="text/javascript" src="/scripts/map.script.js"></script>
+    <script
+      type="text/javascript"
+      src="/scripts/leaflet-map.script.js"
+    ></script>
     <script type="text/javascript" src="/scripts/point.script.js"></script>
   </body>
 </html>
