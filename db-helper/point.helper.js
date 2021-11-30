@@ -7,7 +7,6 @@ module.exports = (db) => {
     return db
       .query(queryString)
       .then((result) => {
-        console.log("points helper: ", result.rows);
         return result.rows;
       })
       .catch((err) => {
