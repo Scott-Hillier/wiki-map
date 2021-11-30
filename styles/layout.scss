@@ -75,7 +75,6 @@ html {
   display: flex;
   flex-direction: row;
 
-
   #map {
     // border: 2px dotted white;
     width: 100%;
@@ -122,38 +121,30 @@ form.new-map {
   display: flex;
   align-items: center;
   background-color: #2d82b7;
-  height: 84.5%;
+  height: 72%;
 
   .profile-profile {
-    border: 2px solid green;
+    // border: 2px solid green;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     height: 100%;
-    width: 25%;
+    width: 30%;
     padding: 0.5em;
   }
 
-  .profile-map {
-    border: 2px solid red;
+  .map-selection {
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    height: 100%;
+    justify-content: space-between;
     width: 75%;
-  }
-  #profile-map {
-    width: 80%;
-    height: 80%;
   }
 
   .profile-button {
     color: white;
     background-color: #2d82b7;
-    border: 3px solid #07004d;
-    border-radius: 8px;
+    border: 2px solid #07004d;
+    border-radius: 15px;
     height: 2.5em;
     width: 6.5em;
     padding: 2%;
@@ -168,13 +159,19 @@ form.new-map {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    // border: 2px solid black;
+    border: 2px solid #07004d;
+    border-radius: 10px;
     height: 80%;
-    width: 85%;
+    width: 75%;
     margin: 1em;
+    overflow: auto;
   }
 
   .profile-map-list-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid red;
     color: white;
     background-color: #2d82b7;
     border: none;
@@ -188,12 +185,32 @@ form.new-map {
   .profile-map-list-button:hover {
     background-color: #6998b6;
   }
+
+  #profile-map-names {
+    display: flex;
+  }
+
+  .profile-map-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 110%;
+    width: 70%;
+  }
+
+  .profile-map {
+    border: 3px solid #07004d;
+    border-radius: 10px;
+    width: 2em;
+    height: 31em;
+  }
 }
 
 #map {
   // border: 2px dotted white;
-  width: 100%;
-  height: 400px;
+  width: 85%;
+  height: 85%;
 }
 
 .c3 .edit-point {
@@ -218,20 +235,15 @@ form.new-map {
 }
 
 form .required label:after {
- color: #e32;
- content: '*';
- display:inline;
- font-weight: bold;
+  color: #e32;
+  content: "*";
+  display: inline;
+  font-weight: bold;
 }
-
-
 
 // .c3 {
 //   display: none;
 // }
-
-
-
 
 // .sidenav {
 //   height: 100%;

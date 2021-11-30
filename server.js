@@ -91,7 +91,43 @@ app.get("/profile", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
+  ]).then((data) => {
+    console.log(data);
+    res.render("profile", {
+      user: data[0],
+      maps: data[1],
+    });
+  });
+});
+
+app.get("/profile-favorite-maps", (req, res) => {
+  if (!req.session.userId) {
+    return getAllPublicMaps().then((maps) => {
+      console.log(maps);
+      return res.render("index", { user: null, maps: maps });
+    });
+  }
+  Promise.all([
+    getUserWithUserId(req.session.userId),
     getFavoriteProfileMaps(req.session.userId, true),
+  ]).then((data) => {
+    console.log(data);
+    res.render("profile", {
+      user: data[0],
+      maps: data[1],
+    });
+  });
+});
+
+app.get("/profile-contributor-maps", (req, res) => {
+  if (!req.session.userId) {
+    return getAllPublicMaps().then((maps) => {
+      console.log(maps);
+      return res.render("index", { user: null, maps: maps });
+    });
+  }
+  Promise.all([
+    getUserWithUserId(req.session.userId),
     getContributorProfileMaps(req.session.userId, true),
   ]).then((data) => {
     console.log(data);

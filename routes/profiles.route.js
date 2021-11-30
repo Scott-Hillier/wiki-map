@@ -8,21 +8,14 @@ const profileDataHelper = require("../db-helper/map.helper");
 module.exports = (db) => {
   const { getUserWithUserId } = userDataHelper(db);
   const { getAllPublicMaps } = mapDataHelper(db);
-  // const { getProfileMaps } = profileDataHelper(db);
+  const { getFavoriteProfileMaps, getContributorProfileMaps } =
+    profileDataHelper(db);
 
   //@@ PRIVATE /maps
   // view maps page
   router.get("/profile", (req, res) => {
     getUserWithUserId(req.session.userId).then((user) => {
       res.render("profile", { user: user });
-    });
-  });
-
-  //@@ PRIVATE /maps
-  // view create map page
-  router.get("/new", (req, res) => {
-    getUserWithUserId(req.session.userId).then((user) => {
-      res.render("create_map", { user: user });
     });
   });
 
