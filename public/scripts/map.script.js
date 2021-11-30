@@ -1,12 +1,33 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
+const onPopupOpen = () => {
+  $(".marker-edit-button").on("click", () => {
+    const pointId = $(".point-id").text();
+    const mapId = $(".map-id").text();
+    console.log("map and point:", mapId, pointId);
 
-const getMarkerArr = (pointArr) => {
-  return pointArr.map((point) => {
-    return L.marker([point.latitude, point.longitude]).bindPopup(
-      `<b>${point.title}</b><br>${point.address}`
+    $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) =>
+      console.log(data)
     );
   });
+};
+
+const getMarkerArr = (pointArr) => {
+  const markerArr = pointArr.map((point) => {
+    const markerToAdd = L.marker([point.latitude, point.longitude]).bindPopup(
+      `<b>${point.title}</b><br>
+      ${point.address}<br>
+      <input type='button' value='Edit' class='marker-edit-button' />
+      <span class="point-id" style="display: none;">${point.id}</span>
+      <span class="map-id" style="display: none;">${point.map_id}</span>
+      `
+    );
+
+    markerToAdd.on("popupopen", onPopupOpen);
+
+    return markerToAdd;
+  });
+  return markerArr;
 };
 
 const startMap = (mapData, pointArr) => {
@@ -51,32 +72,12 @@ $(document).ready(() => {
     }).then(() => (document.location.href = "/"));
   });
 
-  let map;
-  map = startMap();
-
-  // const map = L.map("map", {
-  //   layers: [streetview],
-  // }).setView([49.2827, -123.1207], 13);
-
-  // const baseMaps = { satellite, streetview };
-  // const overlayMaps = { vancouverOverlay };
-
-  // L.control.layers(baseMaps, overlayMaps).addTo(map);
-
-  // const onMapClick = (e) => {
-  //   const popupClick = L.popup();
-  //   popupClick
-  //     .setLatLng(e.latlng)
-  //     .setContent("You clicked the map at " + e.latlng.toString())
-  //     .openOn(map);
-  // };
-  // map.on("click", onMapClick);
-
-  const onRightClick = (e) => {
-    const marker = new L.marker(e.latlng).addTo(map);
+  const onRightClick = (event) => {
+    const marker = new L.marker(event.latlng).addTo(map);
     const popup = L.popup({ minWidth: 300 })
-      .setLatLng(e.latlng)
-      .setContent("You right-clicked at: " + e.latlng.toString());
+      .setLatLng(event.latlng)
+      .setContent("You right-clicked at: " + event.latlng.toString());
+
     marker.bindPopup(popup).openPopup();
 
     const point = {
@@ -98,7 +99,8 @@ $(document).ready(() => {
     // });
   };
 
-  map.on("contextmenu", onRightClick); // listener function
+  let map;
+  map = startMap();
 
   $(".map-item-box").on("submit", (event) => {
     event.preventDefault();
@@ -111,8 +113,11 @@ $(document).ready(() => {
       const mapData = data[0];
       const pointArr = data[1];
 
+      //rerender map
       map.remove();
       map = startMap(mapData, pointArr);
+      //add listner for right click
+      map.on("contextmenu", onRightClick);
     });
   });
 });
