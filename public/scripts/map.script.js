@@ -1,16 +1,17 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
-$(document).ready(() => {
+
+const getMarkerArr = (pointArr) => {
+  return pointArr.map((point) => {
+    return L.marker([point.latitude, point.longitude]).bindPopup(
+      `<b>${point.title}</b><br>${point.address}`
+    );
+  });
+};
+
+const startMap = (mapData, pointArr) => {
   const mapboxUrl =
     "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw";
-
-  const marker1 = L.marker([49.287188, -123.07586]);
-  const marker2 = L.marker([49.267825, -123.099969]);
-  marker1.bindPopup("<b>Hello world!</b><br>I am a popup.");
-  marker2.bindPopup("<b>Hello world!</b><br>I am a good place.");
-
-  const vancouverOverlay = L.layerGroup([marker1, marker2]);
-
   const streetview = L.tileLayer(mapboxUrl, {
     maxZoom: 18,
     attribution: "Wiki Maps &copy;",
@@ -18,23 +19,49 @@ $(document).ready(() => {
     tileSize: 512,
     zoomOffset: -1,
   });
+  const markerArr = pointArr ? getMarkerArr(pointArr) : [];
+  const overlayMapToShow = L.layerGroup(markerArr);
+  const layersToShow = mapData ? [streetview, overlayMapToShow] : [streetview];
+  const mapToStart = L.map("map", {
+    layers: layersToShow,
+  }).setView([49.2827, -123.1207], 12);
 
-  const satellite = L.tileLayer(mapboxUrl, {
-    id: "mapbox/satellite-v9",
-    tileSize: 512,
-    zoomOffset: -1,
-    attribution: "Wiki Maps &copy;",
+  const baseMaps = { streetview };
+
+  if (mapData) {
+    L.control
+      .layers(baseMaps, { [mapData.name]: overlayMapToShow })
+      .addTo(mapToStart);
+  }
+
+  return mapToStart;
+};
+
+$(document).ready(() => {
+  $(".new-map").on("submit", (event) => {
+    event.preventDefault();
+
+    const mapName = $("#new-map-name").val();
+    const privateOption = $("#private-option").val();
+
+    $.ajax({
+      type: "POST",
+      url: "/maps/new",
+      data: { mapName, privateOption },
+    }).then(() => (document.location.href = "/"));
   });
 
-  const map = L.map("map", {
-    layers: [streetview, satellite, vancouverOverlay],
-  }).setView([49.2827, -123.1207], 13);
+  let map;
+  map = startMap();
 
-  const baseMaps = { satellite, streetview };
-  const overlayMaps = { vancouverOverlay };
+  // const map = L.map("map", {
+  //   layers: [streetview],
+  // }).setView([49.2827, -123.1207], 13);
 
-  L.control.layers(baseMaps, overlayMaps).addTo(map);
+  // const baseMaps = { satellite, streetview };
+  // const overlayMaps = { vancouverOverlay };
 
+  // L.control.layers(baseMaps, overlayMaps).addTo(map);
 
   // const onMapClick = (e) => {
   //   const popupClick = L.popup();
@@ -45,55 +72,47 @@ $(document).ready(() => {
   // };
   // map.on("click", onMapClick);
 
-
-
   const onRightClick = (e) => {
     const marker = new L.marker(e.latlng).addTo(map);
-    const popup = L.popup( {minWidth: 300} )
+    const popup = L.popup({ minWidth: 300 })
       .setLatLng(e.latlng)
       .setContent("You right-clicked at: " + e.latlng.toString());
     marker.bindPopup(popup).openPopup();
 
     const point = {
       mapId: 4,
-      title: 'testing',
-      description: 'test desc',
-      image: 'url',
+      title: "testing",
+      description: "test desc",
+      image: "url",
       latitude: e.latlng.lat,
       longitude: e.latlng.lng,
-      address: 'test address',
-      type: 'test type',
-    }
+      address: "test address",
+      type: "test type",
+    };
 
     // Ajax query to save the values:
-    $.ajax({
-      method: "POST",
-      url: '/new-point',
-      data: point,
-    })
+    // $.ajax({
+    //   method: "POST",
+    //   url: "/new-point",
+    //   data: point,
+    // });
   };
-  map.on('contextmenu', onRightClick); // listener function
 
+  map.on("contextmenu", onRightClick); // listener function
 
+  $(".map-item-box").on("submit", (event) => {
+    event.preventDefault();
+    const mapId = event.target.querySelector("input").value;
 
-  // const circle1 = L.circle([49.267825, -123.099969], {
-  //   color: "green",
-  //   fillColor: "#f03",
-  //   fillOpacity: 0.5,
-  //   radius: 500,
-  // }).addTo(map);
+    Promise.all([
+      $.ajax({ type: "GET", url: `/maps/${mapId}` }),
+      $.ajax({ type: "GET", url: `/points/${mapId}` }),
+    ]).then((data) => {
+      const mapData = data[0];
+      const pointArr = data[1];
 
-  // const polygon1 = L.polygon([
-  //   [49.268825, -123.097969],
-  //   [49.26785, -123.098969],
-  //   [49.269825, -123.090969],
-  // ]).addTo(map);
-
-  // circle1.bindPopup("I am a circle.");
-  // polygon1.bindPopup("I am a polygon.");
-
-  // L.popup()
-  //   .setLatLng([49.25785, -123.098969])
-  //   .setContent("I am a standalone popup.")
-  //   .openOn(map);
+      map.remove();
+      map = startMap(mapData, pointArr);
+    });
+  });
 });
