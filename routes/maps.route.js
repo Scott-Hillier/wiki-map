@@ -28,7 +28,12 @@ module.exports = (db) => {
   // create map
   router.post("/new", (req, res) => {
     const { mapName, privateOption } = req.body;
-    createMap(req.session.userId, mapName, privateOption).then(() => res.end());
+    createMap(req.session.userId, mapName, privateOption).then((data) => {
+      if (!data) {
+        return res.json({ error: "server error" });
+      }
+      res.end();
+    });
   });
 
   // //@@ PUBLIC /maps
