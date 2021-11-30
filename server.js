@@ -44,7 +44,7 @@ app.use(express.static("public"));
 const usersRoutes = require("./routes/users.route");
 const mapsRoutes = require("./routes/maps.route");
 // const pointsRoutes = require("./routes/points.route");
-// const profilesRoutes = require("./routes/profiles.route");
+const profilesRoutes = require("./routes/profiles.route");
 
 const userDataHelper = require("./db-helper/user.helper");
 const mapDataHelper = require("./db-helper/map.helper");
@@ -55,12 +55,12 @@ const { getAllPublicMaps } = mapDataHelper(db);
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 // app.use("/api/points", pointsRoutes(db));
-// app.use("/api/profiles", profilesRoutes(db));
+app.use("/profile", profilesRoutes(db));
 
 // Home page
 app.get("/", (req, res) => {
   if (!req.session.userId) {
-    getAllPublicMaps().then((maps) => {
+    return getAllPublicMaps().then((maps) => {
       return res.render("index", { user: null, maps: maps });
     });
   }

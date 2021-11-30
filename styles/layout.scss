@@ -77,7 +77,7 @@ html {
     padding: 0px 15px;
     width: 120px;
     h3 {
-      // border: 2px dotted white;
+      border: 2px dotted white;
     }
   }
   #map {
@@ -124,24 +124,39 @@ form.new-map {
 
 .profile-page {
   display: flex;
-  justify-content: space-around;
   align-items: center;
   background-color: #2d82b7;
-}
+  height: 84.5%;
 
-.profile-profile {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  flex-basis: 25%;
-}
+  .profile-profile {
+    border: 2px solid green;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 25%;
+  }
 
-.profile-map-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
+  .profile-map-list {
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 75%;
+  }
+
+  .profile-button {
+    color: white;
+    background-color: #2d82b7;
+    border: none;
+  }
+  .profile-button:hover {
+    box-shadow: 2px 2px grey;
+    background-color: #42e2b8;
+  }
 }
 
 #map {
