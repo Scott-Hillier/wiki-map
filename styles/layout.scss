@@ -72,12 +72,12 @@ html {
 
   .map-list {
     // border: 2px dotted white;
-    background-color:rgba(0, 0, 0, 0.612);
+    background-color: rgba(0, 0, 0, 0.612);
     opacity: 60%;
     padding: 0px 15px;
     width: 120px;
     h3 {
-      // border: 2px dotted white;
+      border: 2px dotted white;
     }
   }
   #map {
@@ -85,11 +85,7 @@ html {
     width: 100%;
     height: 100%;
   }
-
 }
-
-
-
 
 form.new-map {
   border: 2px solid white;
@@ -126,11 +122,83 @@ form.new-map {
   }
 }
 
+.profile-page {
+  display: flex;
+  align-items: center;
+  background-color: #2d82b7;
+  height: 84.5%;
 
+  .profile-profile {
+    border: 2px solid green;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
+    width: 25%;
+    padding: 0.5em;
+  }
 
+  .profile-map {
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 75%;
+  }
+  #profile-map {
+    width: 80%;
+    height: 80%;
+  }
 
+  .profile-button {
+    color: white;
+    background-color: #2d82b7;
+    border: 3px solid #07004d;
+    border-radius: 8px;
+    height: 2.5em;
+    width: 6.5em;
+    padding: 2%;
+    cursor: pointer;
+  }
+  .profile-button:hover {
+    background-color: #6998b6;
+  }
 
+  .profile-map-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    // border: 2px solid black;
+    height: 80%;
+    width: 85%;
+    margin: 1em;
+  }
 
+  .profile-map-list-button {
+    color: white;
+    background-color: #2d82b7;
+    border: none;
+    border-radius: 8px;
+    height: 2.5em;
+    width: 13em;
+    padding: 2%;
+    margin: 1%;
+    cursor: pointer;
+  }
+  .profile-map-list-button:hover {
+    background-color: #6998b6;
+  }
+}
+
+#map {
+  border: 2px dotted white;
+  width: 100%;
+  height: 400px;
+}
 
 // .sidenav {
 //   height: 100%;

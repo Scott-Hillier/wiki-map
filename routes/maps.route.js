@@ -54,13 +54,13 @@ module.exports = (db) => {
   // //@@ public route api/maps
   // //get a registered user's maps with user ID
   // router.get("/:userId", (req, res) => {
-  //   getUserMaps(req.body.userId, db).then((data) => res.json(data));
+  //   getUserMaps(req.session.userId, db).then((data) => res.json(data));
   // });
 
   // //@@ public route api/maps
   // //get a map with map ID
   // router.get("/:mapId", (req, res) => {
-  //   getSingleMap(req.body.mapId, db).then((data) => res.json(data));
+  //   getSingleMap(req.session.mapId, db).then((data) => res.json(data));
   // });
 
   // //@@ private route api/maps
