@@ -10,21 +10,30 @@
 
       <section class="profile-page">
         <div class="profile-profile">
-          <img src="/images/profile-image.png" />
-          <h2>Profile Name</h2>
+          <img
+            src="https://e7.pngegg.com/pngimages/918/46/png-clipart-pegman-google-maps-google-street-view-google-goggles-google-angle-rectangle.png"
+            height="200px"
+            width="200px"
+          />
+          <h2><%= user.name %></h2>
           <div>
-            <button type="submit" class="profile-button">My Maps</button>
+            <button type="submit" class="profile-button">All Maps</button>
             <button type="submit" class="profile-button">Favorites</button>
             <button type="submit" class="profile-button">Contributed</button>
           </div>
-          <h3>MAP LIST HERE</h3>
+          <section class="profile-map-list">
+            <% for (const map of maps) { %>
+            <button class="profile-map-list-button"><%=map.name%></button>
+            <% } %>
+          </section>
         </div>
-        <div class="profile-map-list">
-          <h2>MAP LIST HERE</h2>
+        <div class="profile-map" padding="3em">
+          <div class="map" id="map"></div>
         </div>
       </section>
       <div class="c4">class: c4</div>
       <div class="c5"><footer><%- include('partials/_footer') %></footer></div>
     </div>
+    <script type="text/javascript" src="/scripts/map.script.js"></script>
   </body>
 </html>

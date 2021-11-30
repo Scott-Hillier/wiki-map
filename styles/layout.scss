@@ -136,9 +136,10 @@ form.new-map {
     align-items: center;
     height: 100%;
     width: 25%;
+    padding: 0.5em;
   }
 
-  .profile-map-list {
+  .profile-map {
     border: 2px solid red;
     display: flex;
     flex-direction: column;
@@ -147,15 +148,49 @@ form.new-map {
     height: 100%;
     width: 75%;
   }
+  #profile-map {
+    width: 80%;
+    height: 80%;
+  }
 
   .profile-button {
     color: white;
     background-color: #2d82b7;
-    border: none;
+    border: 3px solid #07004d;
+    border-radius: 8px;
+    height: 2.5em;
+    width: 6.5em;
+    padding: 2%;
+    cursor: pointer;
   }
   .profile-button:hover {
-    box-shadow: 2px 2px grey;
-    background-color: #42e2b8;
+    background-color: #6998b6;
+  }
+
+  .profile-map-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    // border: 2px solid black;
+    height: 80%;
+    width: 85%;
+    margin: 1em;
+  }
+
+  .profile-map-list-button {
+    color: white;
+    background-color: #2d82b7;
+    border: none;
+    border-radius: 8px;
+    height: 2.5em;
+    width: 13em;
+    padding: 2%;
+    margin: 1%;
+    cursor: pointer;
+  }
+  .profile-map-list-button:hover {
+    background-color: #6998b6;
   }
 }
 

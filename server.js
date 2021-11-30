@@ -48,8 +48,11 @@ const profilesRoutes = require("./routes/profiles.route");
 
 const userDataHelper = require("./db-helper/user.helper");
 const mapDataHelper = require("./db-helper/map.helper");
+const profileDataHelper = require("./db-helper/profile.helper");
 const { getUserWithUserId } = userDataHelper(db);
 const { getAllPublicMaps } = mapDataHelper(db);
+const { getFavoriteProfileMaps, getContributorProfileMaps } =
+  profileDataHelper(db);
 
 // Mount all resource routes
 app.use("/users", usersRoutes(db));
@@ -70,6 +73,29 @@ app.get("/", (req, res) => {
     getAllPublicMaps(req.session.userId),
   ]).then((data) => {
     res.render("index", {
+      user: data[0],
+      maps: data[1],
+    });
+  });
+});
+
+// Profile Page
+app.get("/profile", (req, res) => {
+  if (!req.session.userId) {
+    return getAllPublicMaps().then((maps) => {
+      console.log(maps);
+      return res.render("index", { user: null, maps: maps });
+    });
+  }
+
+  Promise.all([
+    getUserWithUserId(req.session.userId),
+    getAllPublicMaps(req.session.userId),
+    getFavoriteProfileMaps(req.session.userId, true),
+    getContributorProfileMaps(req.session.userId, true),
+  ]).then((data) => {
+    console.log(data);
+    res.render("profile", {
       user: data[0],
       maps: data[1],
     });

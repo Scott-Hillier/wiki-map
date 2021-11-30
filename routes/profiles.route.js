@@ -2,17 +2,17 @@ const express = require("express");
 const router = express.Router();
 
 const userDataHelper = require("../db-helper/user.helper");
-// const mapDataHelper = require("../db-helper/map.helper");
+const mapDataHelper = require("../db-helper/map.helper");
 const profileDataHelper = require("../db-helper/map.helper");
 
 module.exports = (db) => {
   const { getUserWithUserId } = userDataHelper(db);
-  // const { getAllPublicMaps } = mapDataHelper(db);
-  const { getProfileMaps } = profileDataHelper(db);
+  const { getAllPublicMaps } = mapDataHelper(db);
+  // const { getProfileMaps } = profileDataHelper(db);
 
   //@@ PRIVATE /maps
   // view maps page
-  router.get("/", (req, res) => {
+  router.get("/profile", (req, res) => {
     getUserWithUserId(req.session.userId).then((user) => {
       res.render("profile", { user: user });
     });
@@ -29,7 +29,7 @@ module.exports = (db) => {
   //@@ PUBLIC /maps
   //get all public maps including user's maps if authenticated
   router.get("/public-maps", (req, res) => {
-    getProfileMaps(req.session.userId).then((data) => res.json(data));
+    getAllPublicMaps(req.session.userId).then((data) => res.json(data));
   });
 
   // //@@ private route api/profiles
