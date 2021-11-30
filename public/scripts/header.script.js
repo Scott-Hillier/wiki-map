@@ -5,7 +5,6 @@ $(document).ready(() => {
     event.preventDefault();
 
     const inputValue = $(".sign-in-form >input").val();
-    console.log(inputValue);
     $.ajax({ type: "POST", url: `/users/${inputValue}/sign-in` }).then(() => {
       window.location.reload(); //relaod upon sign in
     });

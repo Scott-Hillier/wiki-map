@@ -6,7 +6,7 @@ const mapDataHelper = require("../db-helper/map.helper");
 
 module.exports = (db) => {
   const { getUserWithUserId } = userDataHelper(db);
-  // const { getAllPublicMaps } = mapDataHelper(db);
+  const { createMap } = mapDataHelper(db);
 
   //@@ PRIVATE /maps
   // view maps page
@@ -22,6 +22,13 @@ module.exports = (db) => {
     getUserWithUserId(req.session.userId).then((user) => {
       res.render("create_map", { user: user });
     });
+  });
+
+  //@@ PRIVATE /maps
+  // create map
+  router.post("/new", (req, res) => {
+    const { mapName, privateOption } = req.body;
+    createMap(req.session.userId, mapName, privateOption).then(() => res.end());
   });
 
   // //@@ PUBLIC /maps
