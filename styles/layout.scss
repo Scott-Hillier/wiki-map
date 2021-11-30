@@ -38,7 +38,7 @@ html {
 }
 
 .c2 {
-  border: 2px dotted white;
+  // border: 2px dotted white;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -49,12 +49,17 @@ html {
   }
 }
 .c3 {
+  // border: 2px dotted white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   flex-grow: 1;
+  h3 {
+    border: 2px dotted white;
+  }
 }
 .c5 {
-  border: 2px dotted white;
+  // border: 2px dotted white;
   height: 65px;
   padding: 0px 15px;
   display: flex;
@@ -64,13 +69,13 @@ html {
 }
 
 .map-container {
-  border: 2px dotted red;
+  border: 2px solid black;
   width: 100%;
   height: 450px;
   display: flex;
   flex-direction: row;
 
- 
+
   #map {
     // border: 2px dotted white;
     width: 100%;
@@ -186,10 +191,47 @@ form.new-map {
 }
 
 #map {
-  border: 2px dotted white;
+  // border: 2px dotted white;
   width: 100%;
   height: 400px;
 }
+
+.c3 .edit-point {
+  border: 2px solid white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+
+  .form-field {
+    // border: 2px dotted white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0px;
+
+    input {
+      width: 350px;
+      margin: 0px 20px;
+    }
+  }
+}
+
+form .required label:after {
+ color: #e32;
+ content: '*';
+ display:inline;
+ font-weight: bold;
+}
+
+
+
+// .c3 {
+//   display: none;
+// }
+
+
+
 
 // .sidenav {
 //   height: 100%;
