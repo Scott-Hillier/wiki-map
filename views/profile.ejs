@@ -16,19 +16,29 @@
             width="200px"
           />
           <h2><%= user.name %></h2>
-          <div>
-            <button type="submit" class="profile-button">All Maps</button>
-            <button type="submit" class="profile-button">Favorites</button>
-            <button type="submit" class="profile-button">Contributed</button>
+          <div class="map-selection">
+            <form action="/profile-all-maps" action="GET">
+              <button type="submit" class="profile-button">All Maps</button>
+            </form>
+            <form action="/profile-favorite-maps" action="GET">
+              <button type="submit" class="profile-button">Favorites</button>
+            </form>
+            <form action="/profile-contributor-maps" action="GET">
+              <button type="submit" class="profile-button">Contributed</button>
+            </form>
           </div>
           <section class="profile-map-list">
-            <% for (const map of maps) { %>
+            <% for (const map of publicMaps) { %>
+            <button class="profile-map-list-button"><%=map.name%></button>
+            <% } %> <% for (const map of favoriteMaps) { %>
+            <button class="profile-map-list-button"><%=map.name%></button>
+            <% } %> <% for (const map of contributorMaps) { %>
             <button class="profile-map-list-button"><%=map.name%></button>
             <% } %>
           </section>
         </div>
-        <div class="profile-map" padding="3em">
-          <div class="map" id="map"></div>
+        <div class="profile-map-box" padding="3em">
+          <div class="profile-map" id="map"></div>
         </div>
       </section>
       <div class="c4">class: c4</div>

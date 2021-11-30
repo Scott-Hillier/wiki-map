@@ -97,7 +97,9 @@ app.get("/profile", (req, res) => {
     console.log(data);
     res.render("profile", {
       user: data[0],
-      maps: data[1],
+      publicMaps: data[1],
+      favoriteMaps: data[2],
+      contributorMaps: data[3],
     });
   });
 });
