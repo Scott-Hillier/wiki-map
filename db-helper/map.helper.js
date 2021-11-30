@@ -31,6 +31,17 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
+  const getMapWithMapId = (map_id) => {
+    return db
+      .query(
+        `
+      SELECT * FROM maps WHERE id = $1;`,
+        [map_id]
+      )
+      .then((result) => result.rows[0])
+      .catch((err) => console.log(err.message));
+  };
+
   //===============================
   // const getAllAvailableMaps = () => {
   //   return db
@@ -50,19 +61,6 @@ module.exports = (db) => {
   //       [user_id]
   //     )
   //     .then((result) => result.rows)
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // };
-
-  // const getSingleMap = (map_id) => {
-  //   return db
-  //     .query(
-  //       `
-  //     SELECT * FROM maps WHERE id = $1;`,
-  //       [map_id]
-  //     )
-  //     .then((result) => result.rows[0])
   //     .catch((err) => {
   //       res.status(500).json({ error: err.message });
   //     });
@@ -89,8 +87,8 @@ module.exports = (db) => {
   return {
     getAllPublicMaps,
     createMap,
+    getMapWithMapId,
     // getUserMaps,
-    // getSingleMap,
     // deleteMap,
     // favoriteMap,
   };

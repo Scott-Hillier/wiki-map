@@ -19,22 +19,14 @@ $(document).ready(() => {
     zoomOffset: -1,
   });
 
-  const satellite = L.tileLayer(mapboxUrl, {
-    id: "mapbox/satellite-v9",
-    tileSize: 512,
-    zoomOffset: -1,
-    attribution: "Wiki Maps &copy;",
-  });
-
   const map = L.map("map", {
-    layers: [streetview, satellite, vancouverOverlay],
+    layers: [streetview, vancouverOverlay],
   }).setView([49.2827, -123.1207], 13);
 
-  const baseMaps = { satellite, streetview };
-  const overlayMaps = { vancouverOverlay };
+  // const baseMaps = { satellite, streetview };
+  // const overlayMaps = { vancouverOverlay };
 
-  L.control.layers(baseMaps, overlayMaps).addTo(map);
-
+  // L.control.layers(baseMaps, overlayMaps).addTo(map);
 
   // const onMapClick = (e) => {
   //   const popupClick = L.popup();
@@ -45,36 +37,32 @@ $(document).ready(() => {
   // };
   // map.on("click", onMapClick);
 
-
-
   const onRightClick = (e) => {
     const marker = new L.marker(e.latlng).addTo(map);
-    const popup = L.popup( {minWidth: 300} )
+    const popup = L.popup({ minWidth: 300 })
       .setLatLng(e.latlng)
       .setContent("You right-clicked at: " + e.latlng.toString());
     marker.bindPopup(popup).openPopup();
 
     const point = {
       mapId: 4,
-      title: 'testing',
-      description: 'test desc',
-      image: 'url',
+      title: "testing",
+      description: "test desc",
+      image: "url",
       latitude: e.latlng.lat,
       longitude: e.latlng.lng,
-      address: 'test address',
-      type: 'test type',
-    }
+      address: "test address",
+      type: "test type",
+    };
 
     // Ajax query to save the values:
     $.ajax({
       method: "POST",
-      url: '/new-point',
+      url: "/new-point",
       data: point,
-    })
+    });
   };
-  map.on('contextmenu', onRightClick); // listener function
-
-
+  map.on("contextmenu", onRightClick); // listener function
 
   // const circle1 = L.circle([49.267825, -123.099969], {
   //   color: "green",
