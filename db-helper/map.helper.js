@@ -1,6 +1,5 @@
 /* eslint-disable camelcase */
 module.exports = (db) => {
-
   const getAllPublicMaps = (userId) => {
     let queryString;
     if (userId) {
@@ -16,6 +15,19 @@ module.exports = (db) => {
     return db
       .query(queryString)
       .then((res) => res.rows)
+      .catch((err) => console.log(err.message));
+  };
+
+  const createMap = (userId, mapName, isPrivate) => {
+    const queryString = `
+      INSERT INTO maps (user_id, name, isPrivate )
+      VALUES (${userId}, $1, ${isPrivate})
+      RETURNING *;
+      `;
+    const queryParams = [mapName];
+    return db
+      .query(queryString, queryParams)
+      .then((res) => res.rows[0])
       .catch((err) => console.log(err.message));
   };
 
@@ -56,20 +68,6 @@ module.exports = (db) => {
   //     });
   // };
 
-  // const createMap = (options) => {
-  //   return db
-  //     .query(
-  //       `INSERT INTO maps(user_id, name, isPrivate)
-  //       VALUES($1, $2, $3)
-  //       RETURNING *;`,
-  //       [options.user_id, options.name, options.isPrivate]
-  //     )
-  //     .then((result) => result.rows[result.rows.length])
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // };
-
   // const deleteMap = (map_id) => {
   //   return db
   //     .query(`DELETE FROM maps WHERE map_id = $1;`, [map_id])
@@ -90,10 +88,9 @@ module.exports = (db) => {
 
   return {
     getAllPublicMaps,
-    // getAllAvailableMaps,
+    createMap,
     // getUserMaps,
     // getSingleMap,
-    // createMap,
     // deleteMap,
     // favoriteMap,
   };

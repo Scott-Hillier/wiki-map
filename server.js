@@ -68,12 +68,12 @@ app.get("/", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
-  ]).then((data) =>
+  ]).then((data) => {
     res.render("index", {
       user: data[0],
       maps: data[1],
-    })
-  );
+    });
+  });
 });
 
 app.listen(PORT, () => {

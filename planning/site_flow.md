@@ -15,5 +15,3 @@ Registered user:
   - on submit: redirects to view new map
 - Profile:
   - 
-
-
