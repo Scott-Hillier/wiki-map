@@ -60,11 +60,11 @@ app.use("/maps", mapsRoutes(db));
 // Home page
 app.get("/", (req, res) => {
   if (!req.session.userId) {
-    getAllPublicMaps().then((maps) => {
+    return getAllPublicMaps().then((maps) => {
       return res.render("index", { user: null, maps: maps });
     });
   }
-  
+
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
