@@ -4,11 +4,30 @@ const onPopupOpen = () => {
   $(".marker-edit-button").on("click", () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
-    console.log("map and point:", mapId, pointId);
 
-    $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) =>
-      console.log(data)
-    );
+    $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) => {
+      $("#point-title").val(data.title);
+      $("#point-description").val(data.description);
+      $("#point-image-url").val(data.image);
+      $("#point-address").val(data.address);
+      $("#point-type").val(data.type);
+    });
+  });
+};
+
+const tempMarkerPopupOpen = (map) => (event) => {
+  $(".tempMarker-add-button").on("click", () => {
+    console.log(event);
+    $(".temp-marker-add-form").on("submit", (e) => {
+      e.preventDefault();
+      const latitude = $(".point-lat").val();
+      const longitude = $(".point-lng").val();
+      console.log(latitude, longitude);
+    });
+  });
+
+  $(".tempMarker-delete-button").on("click", () => {
+    map.removeLayer(event.target);
   });
 };
 
@@ -22,9 +41,8 @@ const getMarkerArr = (pointArr) => {
       <span class="map-id" style="display: none;">${point.map_id}</span>
       `
     );
-
+    // set listener to marker
     markerToAdd.on("popupopen", onPopupOpen);
-
     return markerToAdd;
   });
   return markerArr;
@@ -59,6 +77,7 @@ const startMap = (mapData, pointArr) => {
 };
 
 $(document).ready(() => {
+  //set listener to new-map button =================
   $(".new-map").on("submit", (event) => {
     event.preventDefault();
 
@@ -72,33 +91,7 @@ $(document).ready(() => {
     }).then(() => (document.location.href = "/"));
   });
 
-  const onRightClick = (event) => {
-    const marker = new L.marker(event.latlng).addTo(map);
-    const popup = L.popup({ minWidth: 300 })
-      .setLatLng(event.latlng)
-      .setContent("You right-clicked at: " + event.latlng.toString());
-
-    marker.bindPopup(popup).openPopup();
-
-    const point = {
-      mapId: 4,
-      title: "testing",
-      description: "test desc",
-      image: "url",
-      latitude: e.latlng.lat,
-      longitude: e.latlng.lng,
-      address: "test address",
-      type: "test type",
-    };
-
-    // Ajax query to save the values:
-    // $.ajax({
-    //   method: "POST",
-    //   url: "/new-point",
-    //   data: point,
-    // });
-  };
-
+  //display map ======================================
   let map;
   map = startMap();
 
@@ -116,6 +109,43 @@ $(document).ready(() => {
       //rerender map
       map.remove();
       map = startMap(mapData, pointArr);
+
+      const onRightClick = (event) => {
+        console.log(event.latlng);
+        const tempMarker = new L.marker(event.latlng).addTo(map);
+        tempMarker.on("popupopen", tempMarkerPopupOpen(map));
+        tempMarker
+          .bindPopup(
+            `
+            <form class="temp-marker-add-form" style="display: inline-block; margin-right: 5px;">
+            <input value=${event.latlng.lat} class="point-lat" hidden />
+            <input value=${event.latlng.lng} class="point-lng" hidden />
+            <input type='submit' value='Add' class='tempMarker-add-button' />
+            </form>
+            <input type='button' value='Delete' class='tempMarker-delete-button' />
+          `
+          )
+          .openPopup();
+
+        // const point = {
+        //   mapId: mapData.id,
+        //   title: "testing",
+        //   description: "test desc",
+        //   image: "url",
+        //   latitude: e.latlng.lat,
+        //   longitude: e.latlng.lng,
+        //   address: "test address",
+        //   type: "test type",
+        // };
+
+        // Ajax query to save the values:
+        // $.ajax({
+        //   method: "POST",
+        //   url: "/new-point",
+        //   data: point,
+        // });
+      };
+
       //add listner for right click
       map.on("contextmenu", onRightClick);
     });

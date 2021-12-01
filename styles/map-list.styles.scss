@@ -33,16 +33,13 @@ h2 {
       }
     }
     #i-heart {
-      transform: scale(1.2);
+      transform: scale(1.1);
       cursor: pointer;
       background-color: #205474;
       border: none;
       &:hover {
         transition-duration: 0.3s;
-        color: red;
-      }
-      &:active {
-        color: red;
+        color: rgb(209, 75, 75);
       }
     }
   }
