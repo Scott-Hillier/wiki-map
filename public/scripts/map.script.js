@@ -1,18 +1,25 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
-const onPopupOpen = () => {
+const onPopupOpen = (event) => {
   $(".marker-edit-button").on("click", () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
 
-    $.ajax({ type: "GET", url: `points/${mapId}/${pointId}`}).then((data) => {
-      $('#point-title').val(data.title);
-      $('#point-description').val(data.description);
-      $('#point-image-url').val(data.image);
-      $('#point-address').val(data.address);
-      $('#point-type').val(data.type);
+    $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) => {
+      $("#point-title").val(data.title);
+      $("#point-description").val(data.description);
+      $("#point-image-url").val(data.image);
+      $("#point-address").val(data.address);
+      $("#point-type").val(data.type);
     });
   });
+
+  $(".marker-delete-button").on("click", () => {
+    const pointId = $(".point-id").text();
+    const mapId = $(".map-id").text();
+    console.log("delete button clicked:", pointId, mapId);
+  });
+
 };
 
 const tempMarkerPopupOpen = (map) => (event) => {
@@ -39,6 +46,7 @@ const getMarkerArr = (pointArr) => {
       <input type='button' value='Edit' class='marker-edit-button' />
       <span class="point-id" style="display: none;">${point.id}</span>
       <span class="map-id" style="display: none;">${point.map_id}</span>
+      <input type='button' value='Delete' class='marker-delete-button' />
       `
     );
     // set listener to marker
@@ -126,24 +134,6 @@ $(document).ready(() => {
           `
           )
           .openPopup();
-
-        // const point = {
-        //   mapId: mapData.id,
-        //   title: "testing",
-        //   description: "test desc",
-        //   image: "url",
-        //   latitude: e.latlng.lat,
-        //   longitude: e.latlng.lng,
-        //   address: "test address",
-        //   type: "test type",
-        // };
-
-        // Ajax query to save the values:
-        // $.ajax({
-        //   method: "POST",
-        //   url: "/new-point",
-        //   data: point,
-        // });
       };
 
       //add listner for right click
