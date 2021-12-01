@@ -14,6 +14,7 @@ For example: "Best Places to Eat Around Town" or "Locations of Movie Scenes".
 - use http://leafletjs.com/ or https://developers.google.com/maps/
 
 Stretch:
+- input address, 
 - user can determine if map is modifiable
 
 # Stack Requirements
