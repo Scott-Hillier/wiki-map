@@ -6,12 +6,12 @@ const onPopupOpen = () => {
     const mapId = $(".map-id").text();
     console.log("map and point:", mapId, pointId);
 
-    $.ajax({ type: "GET", url: `points/${mapId}/${pointId}`}).then((data) => {
-      $('#point-title').val(data.title);
-      $('#point-description').val(data.description);
-      $('#point-image-url').val(data.image);
-      $('#point-address').val(data.address);
-      $('#point-type').val(data.type);
+    $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) => {
+      $("#point-title").val(data.title);
+      $("#point-description").val(data.description);
+      $("#point-image-url").val(data.image);
+      $("#point-address").val(data.address);
+      $("#point-type").val(data.type);
     });
   });
 };
@@ -42,10 +42,7 @@ const getMarkerArr = (pointArr) => {
       <span class="map-id" style="display: none;">${point.map_id}</span>
       `
     );
-<<<<<<< HEAD
-=======
     // set listener to marker
->>>>>>> e87da40234d99901299d36daa0afadf4dd0775ac
     markerToAdd.on("popupopen", onPopupOpen);
     return markerToAdd;
   });
