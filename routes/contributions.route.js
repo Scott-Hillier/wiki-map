@@ -12,7 +12,9 @@ module.exports = (db) => {
       req.session.userId,
       req.params.mapId
     ).then((data) => {
-      console.log(data);
+      if (!data) {
+        return res.end();
+      }
       res.json(data);
     });
   });
