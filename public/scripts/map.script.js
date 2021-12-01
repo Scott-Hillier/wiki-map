@@ -4,7 +4,6 @@ const onPopupOpen = () => {
   $(".marker-edit-button").on("click", () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
-    console.log("map and point:", mapId, pointId);
 
     $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) => {
       $("#point-title").val(data.title);
