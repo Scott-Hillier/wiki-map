@@ -22,7 +22,6 @@ const getMarkerArr = (pointArr) => {
       <span class="map-id" style="display: none;">${point.map_id}</span>
       `
     );
-
     markerToAdd.on("popupopen", onPopupOpen);
 
     return markerToAdd;
