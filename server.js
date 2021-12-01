@@ -50,7 +50,7 @@ const userDataHelper = require("./db-helper/user.helper");
 const mapDataHelper = require("./db-helper/map.helper");
 const profileDataHelper = require("./db-helper/profile.helper");
 const { getUserWithUserId } = userDataHelper(db);
-const { getAllPublicMaps } = mapDataHelper(db);
+const { getAllPublicMaps, favoriteThisMap } = mapDataHelper(db);
 const { getFavoriteProfileMaps, getContributorProfileMaps } =
   profileDataHelper(db);
 
@@ -92,7 +92,6 @@ app.get("/profile", (req, res) => {
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
   ]).then((data) => {
-    console.log(data);
     res.render("profile", {
       user: data[0],
       maps: data[1],
@@ -111,7 +110,6 @@ app.get("/profile-favorite-maps", (req, res) => {
     getUserWithUserId(req.session.userId),
     getFavoriteProfileMaps(req.session.userId, true),
   ]).then((data) => {
-    console.log(data);
     res.render("profile", {
       user: data[0],
       maps: data[1],
@@ -130,13 +128,19 @@ app.get("/profile-contributor-maps", (req, res) => {
     getUserWithUserId(req.session.userId),
     getContributorProfileMaps(req.session.userId, true),
   ]).then((data) => {
-    console.log(data);
     res.render("profile", {
       user: data[0],
       maps: data[1],
     });
   });
 });
+
+// app.post("/favorite-button", (req, res) => {
+//   console.log("HIT FAVORITE BUTTON");
+//   favoriteThisMap(req.session.userId, req.session.mapId).then((data) => {
+//     console.log(data);
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
