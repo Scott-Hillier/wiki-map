@@ -18,6 +18,11 @@ const onPopupOpen = (event) => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
     console.log("delete button clicked:", pointId, mapId);
+
+    $.ajax({ type: "DELETE", url: `points/${mapId}/${pointId}` }).then(() => {
+      console.log('delete request');
+    });
+
   });
 
 };
