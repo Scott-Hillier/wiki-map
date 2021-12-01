@@ -17,12 +17,22 @@ VALUES
   (2, 'Queen Elizabeth Park', 'Located in central Vancouver Queen Elizabath Park has multiple amenities including pitch and putt, disc golf, and a bird conservation', 'https://i.pinimg.com/originals/f9/90/80/f99080a76b5b2e76d68c44eaec825dda.jpg', 49.24144393363248, -123.11219996352702, '4600 Cambie St.', 'Park'),
   (4, 'McDonalds', 'The fanciest McDonalds', 'http://bengkel.kaodim.com/wp-content/uploads/2015/01/oldmcdonalds-edit.jpg', 49.2852402429455, -123.13906878784746, '1610 Davie St.', 'Restaurant');
 
-INSERT INTO profiles (user_id, map_id, isFavorite, isContributor)
+INSERT INTO favourites (user_id, map_id, isFavorite)
 VALUES
-  (1, 1, TRUE, TRUE),
-  (2, 2, TRUE, TRUE),
-  (3, 3, TRUE, TRUE),
-  (4, 4, TRUE, TRUE),
-  (1, 5, FALSE, TRUE),
-  (1, 6, TRUE, TRUE),
-  (5, 1, TRUE, FALSE);
+  (1, 1, TRUE),
+  (2, 2, FALSE),
+  (3, 3, FALSE),
+  (4, 4, FALSE),
+  (1, 5, FALSE),
+  (1, 6, FALSE),
+  (5, 1, TRUE)
+
+INSERT INTO contributions (user_id, map_id, isContributed)
+VALUES
+  (1, 1, TRUE),
+  (2, 2, TRUE),
+  (3, 3, TRUE),
+  (4, 4, TRUE),
+  (1, 5, FALSE),
+  (1, 6, FALSE),
+  (5, 1, FALSE)
