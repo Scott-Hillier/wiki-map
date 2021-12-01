@@ -149,7 +149,7 @@ $(document).ready(() => {
         tempMarker.on("popupopen", tempMarkerPopupOpen(map, mapData.id));
         tempMarker
           .bindPopup(
-            `
+            `<span style="font-size: 14px;">You want to add?</span><br>
             <form class="temp-marker-add-form" style="display: inline-block; margin-right: 5px;">
             <input value=${event.latlng.lat} class="point-lat" hidden />
             <input value=${event.latlng.lng} class="point-lng" hidden />
