@@ -122,8 +122,9 @@ module.exports = (db) => {
   };
 
   const deletePoint = (point_id) => {
+    console.log('inside deletePoint func');
     return db
-      .query(`DELETE FROM maps WHERE id = $1;`, [point_id])
+      .query(`DELETE FROM points WHERE id = $1;`, [point_id])
       .then((res) => res.rows)
       .catch((err) => console.log(err.message));
   };
