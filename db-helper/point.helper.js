@@ -60,75 +60,14 @@ module.exports = (db) => {
   };
 
   // point is an object with the changes the user wants to implement
-  const editPoint = (point, point_id) => {
-    const queryParams = [];
-    let queryString = `UPDATE points`;
-
-    if (point.title) {
-      queryParams.push(point.title);
-      queryString += `SET title = $2`;
-    }
-
-    if (point.description) {
-      queryParams.push(point.description);
-      if (queryParams.length === 0) {
-        queryString += `SET description=$${queryParams.length}`;
-      } else {
-        queryString += `, description=$${queryParams.length}`;
-      }
-    }
-
-    if (point.image) {
-      queryParams.push(point.image);
-      if (queryParams.length === 0) {
-        queryString += `SET image=$${queryParams.length}`;
-      } else {
-        queryString += `, image=$${queryParams.length}`;
-      }
-    }
-
-    if (point.latitude) {
-      queryParams.push(point.latitude);
-      if (queryParams.length === 0) {
-        queryString += `SET latitude=$${queryParams.length}`;
-      } else {
-        queryString += `, latitude=$${queryParams.length}`;
-      }
-    }
-
-    if (point.longitude) {
-      queryParams.push(point.longitude);
-      if (queryParams.length === 0) {
-        queryString += `SET longitude=$${queryParams.length}`;
-      } else {
-        queryString += `, longitude=$${queryParams.length}`;
-      }
-    }
-
-    if (point.address) {
-      queryParams.push(point.address);
-      if (queryParams.length === 0) {
-        queryString += `SET address=$${queryParams.length}`;
-      } else {
-        queryString += `, address=$${queryParams.length}`;
-      }
-    }
-
-    if (point.type) {
-      queryParams.push(point.type);
-      if (queryParams.length === 0) {
-        queryString += `SET type=$${queryParams.length}`;
-      } else {
-        queryString += `, type=$${queryParams.length}`;
-      }
-    }
-
-    queryParams.push(point_id);
-    queryString += `WHERE id = $${queryParams.length};`;
+  const editPointWithPointId = (point_id, updatedPoint) => {
+    const { title, description, imageUrl, address, type } = updatedPoint;
+    const queryString = `UPDATE points SET title = $1, description = $2, image = $3, address = $4, type = $5 WHERE id = ${point_id} RETURNING *`;
+    const queryParams = [title, description, imageUrl, address, type];
 
     return db
       .query(queryString, queryParams)
-      .then((res) => res.rows)
+      .then((res) => res.rows[0])
       .catch((err) => console.log(err.message));
   };
 
@@ -144,7 +83,7 @@ module.exports = (db) => {
     getPointsWithMapId,
     getPointWithMapAndPointId,
     addPoint,
-    editPoint,
+    editPointWithPointId,
     deletePoint,
   };
 };

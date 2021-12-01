@@ -8,6 +8,7 @@ module.exports = (db) => {
     getPointWithMapAndPointId,
     deletePoint,
     addPoint,
+    editPointWithPointId,
   } = pointDataHelper(db);
 
   //@@ private route /points
@@ -19,7 +20,7 @@ module.exports = (db) => {
   //@@ public route /points
   //get a point with map ID && point ID
   router.get("/:mapId/:pointId", (req, res) => {
-    return getPointWithMapAndPointId(req.params.mapId, req.params.pointId).then(
+    getPointWithMapAndPointId(req.params.mapId, req.params.pointId).then(
       (point) => {
         res.json(point);
       }
@@ -29,7 +30,14 @@ module.exports = (db) => {
   //@@ public route /points
   //get all point from a map
   router.get("/:mapId", (req, res) => {
-    return getPointsWithMapId(req.params.mapId).then((data) => res.json(data));
+    getPointsWithMapId(req.params.mapId).then((data) => res.json(data));
+  });
+
+  //@@ public route /points
+  //get all point from a map
+  router.put("/:pointId", (req, res) => {
+    console.log(req.body);
+    editPointWithPointId(req.params.pointId, req.body).then((point) => res.json(point));
   });
 
   //@@ private route /points

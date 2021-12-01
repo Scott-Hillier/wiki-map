@@ -1,6 +1,10 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
 $(document).ready(() => {
+  $(".close-point-form").on("click", () => {
+    $(".point-submission-box").toggleClass("display");
+  });
+
   $(".edit-point").on("submit", (event) => {
     event.preventDefault();
 
@@ -12,36 +16,42 @@ $(document).ready(() => {
     const latitude = $("#point-latitude").val();
     const longitude = $("#point-longitude").val();
     const mapId = $("#point-mapId").val();
+    const pointId = $("#point-pointId").val();
+    const update = $("#point-update").val();
 
-    console.log(
-      "point info:",
-      title,
-      description,
-      imageUrl,
-      address,
-      type,
-      latitude,
-      longitude,
-      mapId
-    );
-
-    $.ajax({
-      type: "post",
-      url: "/points/new-point",
-      data: {
-        title,
-        description,
-        imageUrl,
-        address,
-        type,
-        latitude,
-        longitude,
-        mapId,
-      },
-    }).then((point) => {
-      $(".point-submission-box").toggleClass("display");
-      console.log(point);
-      window.location.reload();
-    });
+    if (!update) {
+      $.ajax({
+        type: "post",
+        url: "/points/new-point",
+        data: {
+          title,
+          description,
+          imageUrl,
+          address,
+          type,
+          latitude,
+          longitude,
+          mapId,
+        },
+      }).then(() => {
+        $(".point-submission-box").toggleClass("display");
+        window.location.reload();
+      });
+    } else {
+      $.ajax({
+        type: "put",
+        url: `/points/${pointId}`,
+        data: {
+          title,
+          description,
+          imageUrl,
+          address,
+          type,
+        },
+      }).then(() => {
+        $(".point-submission-box").toggleClass("display");
+        window.location.reload();
+      });
+    }
   });
 });

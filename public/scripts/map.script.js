@@ -12,12 +12,13 @@ const onPopupOpen = () => {
       $(".point-form-dynamic-button").text("Update");
       $(".point-submission-box").toggleClass("display");
 
-      console.log(data);
       $("#point-title").val(data.title);
       $("#point-description").val(data.description);
       $("#point-image-url").val(data.image);
       $("#point-address").val(data.address);
       $("#point-type").val(data.type);
+      $("#point-pointId").val(pointId);
+      $("#point-update").val("update");
     });
   });
 
@@ -96,7 +97,7 @@ const startMap = (mapData, pointArr) => {
   const layersToShow = mapData ? [streetview, overlayMapToShow] : [streetview];
   const mapToStart = L.map("map", {
     layers: layersToShow,
-  }).setView([49.2827, -123.1207], 12);
+  }).setView([49.2527, -123.1007], 12);
 
   const baseMaps = { streetview };
 
@@ -144,7 +145,6 @@ $(document).ready(() => {
       map = startMap(mapData, pointArr);
 
       const onRightClick = (event) => {
-        console.log(event.latlng);
         const tempMarker = new L.marker(event.latlng).addTo(map);
         tempMarker.on("popupopen", tempMarkerPopupOpen(map, mapData.id));
         tempMarker
