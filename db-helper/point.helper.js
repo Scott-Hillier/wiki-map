@@ -26,25 +26,36 @@ module.exports = (db) => {
       });
   };
 
-  const addPoint = (point) => {
-    return (db.query(`
-    INSERT INTO points(map_id, title, description, image, latitude, longitude, address, type)
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8)
-    RETURNING *;
-    `),
-    [
-      point.mapId,
-      point.title,
-      point.description,
-      point.image,
-      point.latitude,
-      point.longitude,
-      point.address,
-      point.type,
-    ])
-      .then((result) => result.rows[result.rows.length])
+  const addPoint = ({
+    title,
+    description,
+    imageUrl,
+    address,
+    type,
+    latitude,
+    longitude,
+    mapId,
+  }) => {
+    const queryString = `
+      INSERT INTO points(map_id, title, description, image, latitude, longitude, address, type)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8)
+      RETURNING *;
+      `;
+    const queryParams = [
+      mapId,
+      title,
+      description,
+      imageUrl,
+      latitude,
+      longitude,
+      address,
+      type,
+    ];
+    return db
+      .query(queryString, queryParams)
+      .then((res) => res.rows[0])
       .catch((err) => {
-        res.status(500).json({ error: err.message });
+        console.log({ error: err.message });
       });
   };
 
@@ -122,7 +133,7 @@ module.exports = (db) => {
   };
 
   const deletePoint = (point_id) => {
-    console.log('inside deletePoint func');
+    console.log("inside deletePoint func");
     return db
       .query(`DELETE FROM points WHERE id = $1;`, [point_id])
       .then((res) => res.rows)
