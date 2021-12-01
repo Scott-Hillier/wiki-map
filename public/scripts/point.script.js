@@ -20,23 +20,47 @@ $(document).ready(() => {
     const update = $("#point-update").val();
 
     if (!update) {
-      $.ajax({
-        type: "post",
-        url: "/points/new-point",
-        data: {
-          title,
-          description,
-          imageUrl,
-          address,
-          type,
-          latitude,
-          longitude,
-          mapId,
-        },
-      }).then(() => {
-        $(".point-submission-box").toggleClass("display");
-        window.location.reload();
+      Promise.all([
+        $.ajax({
+          type: "post",
+          url: "/points/new-point",
+          data: {
+            title,
+            description,
+            imageUrl,
+            address,
+            type,
+            latitude,
+            longitude,
+            mapId,
+          },
+        }),
+        $.ajax({
+          type: "post",
+          url: `/contributions/${mapId}`,
+        }),
+      ]).then((data) => {
+        console.log("point:", data[0]);
+        console.log("contribution:", data[1]);
       });
+
+      // $.ajax({
+      //   type: "post",
+      //   url: "/points/new-point",
+      //   data: {
+      //     title,
+      //     description,
+      //     imageUrl,
+      //     address,
+      //     type,
+      //     latitude,
+      //     longitude,
+      //     mapId,
+      //   },
+      // }).then(() => {
+      //   $(".point-submission-box").toggleClass("display");
+      //   window.location.reload();
+      // });
     } else {
       $.ajax({
         type: "put",
