@@ -92,7 +92,6 @@ app.get("/profile", (req, res) => {
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
   ]).then((data) => {
-    console.log(data);
     res.render("profile", {
       user: data[0],
       maps: data[1],
@@ -111,7 +110,6 @@ app.get("/profile-favorite-maps", (req, res) => {
     getUserWithUserId(req.session.userId),
     getFavoriteProfileMaps(req.session.userId, true),
   ]).then((data) => {
-    console.log(data);
     res.render("profile", {
       user: data[0],
       maps: data[1],
@@ -130,7 +128,6 @@ app.get("/profile-contributor-maps", (req, res) => {
     getUserWithUserId(req.session.userId),
     getContributorProfileMaps(req.session.userId, true),
   ]).then((data) => {
-    console.log(data);
     res.render("profile", {
       user: data[0],
       maps: data[1],
