@@ -13,7 +13,10 @@
             <h2>MAPS</h2>
             <div>
               <% for (const map of maps) { %>
-              <div class="map-name-favorite">
+              <div
+                class="map-name-favorite"
+                style="display: flex; justify-content: space-between"
+              >
                 <form class="map-item-box">
                   <label class="map-item"
                     ><%=map.name%>
@@ -31,10 +34,8 @@
           <div class="map" id="map"></div>
         </div>
       </div>
-      
-      <div class="c3">
-        <%- include('partials/_edit_point') %>
-      </div>
+
+      <div class="c3"><%- include('partials/_edit_point') %></div>
 
       <div class="c4">class: c4</div>
       <div class="c5"><footer><%- include('partials/_footer') %></footer></div>
