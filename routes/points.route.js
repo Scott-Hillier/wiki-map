@@ -14,7 +14,7 @@ module.exports = (db) => {
   //@@ public route /points
   //get a point with map ID && point ID
   router.get("/:mapId/:pointId", (req, res) => {
-    console.log("getting a point router");
+    // console.log("getting a point router");
     return getPointWithMapAndPointId(req.params.mapId, req.params.pointId).then(
       (point) => {
         res.json(point);

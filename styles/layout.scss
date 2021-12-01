@@ -55,7 +55,7 @@ html {
   align-items: flex-end;
   flex-grow: 1;
   h3 {
-    border: 2px dotted white;
+    // border: 2px dotted white;
   }
 }
 .c5 {
@@ -248,6 +248,13 @@ form.new-map {
       margin: 0px 20px;
     }
   }
+}
+
+form .required label:after {
+  color: #e32;
+  content: "*";
+  display: inline;
+  font-weight: bold;
 }
 
 // .c3 {
