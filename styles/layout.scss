@@ -42,7 +42,8 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex-grow: 1.5;
+  flex-grow: 1;
+  height: 60%;
   h2 {
     // border: 2px dotted white;
     margin: 0.5em;
@@ -54,9 +55,6 @@ html {
   flex-direction: column;
   align-items: flex-end;
   flex-grow: 1;
-  h3 {
-    // border: 2px dotted white;
-  }
 }
 .c5 {
   // border: 2px dotted white;
@@ -70,10 +68,12 @@ html {
 
 .map-container {
   border: 2px solid black;
+  margin: 2em;
   width: 100%;
-  height: 450px;
   display: flex;
   flex-direction: row;
+  overflow: auto;
+  border-radius: 10px;
 
   #map {
     // border: 2px dotted white;

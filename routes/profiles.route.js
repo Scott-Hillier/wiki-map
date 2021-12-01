@@ -7,7 +7,7 @@ const profileDataHelper = require("../db-helper/map.helper");
 
 module.exports = (db) => {
   const { getUserWithUserId } = userDataHelper(db);
-  const { getAllPublicMaps, getMapWithMapId, createMap } = mapDataHelper(db);
+  const { getAllPublicMaps } = mapDataHelper(db);
   const { getFavoriteProfileMaps, getContributorProfileMaps } =
     profileDataHelper(db);
 
@@ -23,20 +23,6 @@ module.exports = (db) => {
   //get all public maps including user's maps if authenticated
   router.get("/public-maps", (req, res) => {
     getAllPublicMaps(req.session.userId).then((data) => res.json(data));
-  });
-
-  router.get("/:mapId", (req, res) => {
-    return getMapWithMapId(req.params.mapId).then((map) => res.json(map));
-  });
-
-  router.post("/new", (req, res) => {
-    const { mapName, privateOption } = req.body;
-    createMap(req.session.userId, mapName, privateOption).then((data) => {
-      if (!data) {
-        return res.json({ error: "server error" });
-      }
-      res.end();
-    });
   });
 
   // //@@ private route api/profiles
