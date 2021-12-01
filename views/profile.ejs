@@ -12,8 +12,8 @@
         <div class="profile-profile">
           <img
             src="https://cdn4.iconfinder.com/data/icons/avatars-21/512/avatar-circle-human-female-5-512.png"
-            height="100px"
-            width="100px"
+            height="125px"
+            width="125px"
           />
           <h2><%= user.name %></h2>
           <div class="map-selection">
@@ -29,7 +29,7 @@
           </div>
           <div class="profile-map-list">
             <% for (const map of maps) { %>
-            <form>
+            <form class="map-item-box">
               <label class="profile-map-list-button"
                 ><%=map.name%>
                 <input hidden value="<%=map.id%>" type="submit" />
