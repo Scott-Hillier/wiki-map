@@ -123,24 +123,6 @@ $(document).ready(() => {
           `
           )
           .openPopup();
-
-        // const point = {
-        //   mapId: mapData.id,
-        //   title: "testing",
-        //   description: "test desc",
-        //   image: "url",
-        //   latitude: e.latlng.lat,
-        //   longitude: e.latlng.lng,
-        //   address: "test address",
-        //   type: "test type",
-        // };
-
-        // Ajax query to save the values:
-        // $.ajax({
-        //   method: "POST",
-        //   url: "/new-point",
-        //   data: point,
-        // });
       };
 
       //add listner for right click
