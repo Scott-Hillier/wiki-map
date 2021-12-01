@@ -1,5 +1,8 @@
 <div class="point-submission-box">
-  <h3 class='point-form-dynamic-title'></h3>
+  <div style="display: flex; justify-content: space-between">
+    <h3 class="point-form-dynamic-title"></h3>
+    <p class="close-point-form" style="cursor: pointer">close</p>
+  </div>
   <form class="edit-point">
     <div class="form-field required">
       <label for="point-title">Title:</label>
@@ -43,6 +46,8 @@
     <input type="text" id="point-latitude" hidden />
     <input type="text" id="point-longitude" hidden />
     <input type="text" id="point-mapId" hidden />
+    <input type="text" id="point-pointId" hidden />
+    <input type="text" id="point-update" hidden />
 
     <button class="point-form-dynamic-button"></button>
   </form>
