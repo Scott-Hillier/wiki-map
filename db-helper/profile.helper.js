@@ -13,18 +13,18 @@ module.exports = (db) => {
   const getFavoriteProfileMaps = function (user_id, isFavourite) {
     return db
       .query(
-        `SELECT * FROM profiles JOIN maps ON map_id = maps.id WHERE profiles.user_id = $1 AND isFavorite = $2;`,
+        `SELECT * FROM favourites JOIN maps ON map_id = maps.id WHERE favourites.user_id = $1 AND isFavorite = $2;`,
         [user_id, isFavourite]
       )
       .then((result) => result.rows)
       .catch((err) => console.log(err.message));
   };
 
-  const getContributorProfileMaps = function (user_id, isContributor) {
+  const getContributorProfileMaps = function (user_id, isContributed) {
     return db
       .query(
-        `SELECT * FROM profiles JOIN maps ON map_id = maps.id WHERE profiles.user_id = $1 AND isContributor = $2;`,
-        [user_id, isContributor]
+        `SELECT * FROM contributions JOIN maps ON map_id = maps.id WHERE contributions.user_id = $1 AND isContributed = $2;`,
+        [user_id, isContributed]
       )
       .then((result) => result.rows)
       .catch((err) => console.log(err.message));

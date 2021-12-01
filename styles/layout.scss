@@ -1,20 +1,3 @@
-// layout.scss
-// page structure (e.g. floats, widths, positioning, margins, padding, etc.)
-// See: https://sass-lang.com/
-
-// @use 'foundation/variables';
-// @use 'foundation/base';
-
-// @mixin border-mixin {
-//   border: 2px dotted black;
-// }
-// header {
-//   background-color: $color-palette-1a
-// }
-// p {
-//   @include border-mixin();
-// }
-
 body,
 html {
   // border: 2px dotted white;
@@ -55,6 +38,14 @@ html {
   flex-direction: column;
   align-items: flex-end;
   flex-grow: 1;
+
+  .point-submission-box {
+    display: none;
+  }
+
+  .display {
+    display: block;
+  }
 }
 .c5 {
   // border: 2px dotted white;

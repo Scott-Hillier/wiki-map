@@ -1,11 +1,18 @@
 /* eslint-disable no-undef */
 // eslint-disable-next-line no-undef
-const onPopupOpen = (event) => {
+const onPopupOpen = () => {
   $(".marker-edit-button").on("click", () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
 
     $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) => {
+      $(".point-form-dynamic-title").text(
+        "looks like someone changes their mind?"
+      );
+      $(".point-form-dynamic-button").text("Update");
+      $(".point-submission-box").toggleClass("display");
+
+      console.log(data);
       $("#point-title").val(data.title);
       $("#point-description").val(data.description);
       $("#point-image-url").val(data.image);
@@ -17,24 +24,37 @@ const onPopupOpen = (event) => {
   $(".marker-delete-button").on("click", () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
-    console.log("delete button clicked:", pointId, mapId);
 
-    $.ajax({ type: "DELETE", url: `points/${mapId}/${pointId}` }).then(() => {
-      console.log('delete request');
+    $.ajax({ type: "DELETE", url: `/points/${mapId}/${pointId}` }).then(() => {
+      window.location.reload();
     });
-
   });
-
 };
 
-const tempMarkerPopupOpen = (map) => (event) => {
+const tempMarkerPopupOpen = (map, mapId) => (event) => {
   $(".tempMarker-add-button").on("click", () => {
-    console.log(event);
     $(".temp-marker-add-form").on("submit", (e) => {
       e.preventDefault();
       const latitude = $(".point-lat").val();
       const longitude = $(".point-lng").val();
-      console.log(latitude, longitude);
+
+      //clear form upon displaying form
+      $("#point-title").val("");
+      $("#point-description").val("");
+      $("#point-image-url").val("");
+      $("#point-address").val("");
+      $("#point-type").val("");
+
+      $(".point-form-dynamic-title").text(
+        "Add one of your favourite locations"
+      );
+      $(".point-form-dynamic-button").text("Add");
+
+      $(".point-submission-box").toggleClass("display");
+
+      $("#point-latitude").val(latitude);
+      $("#point-longitude").val(longitude);
+      $("#point-mapId").val(mapId);
     });
   });
 
@@ -126,7 +146,7 @@ $(document).ready(() => {
       const onRightClick = (event) => {
         console.log(event.latlng);
         const tempMarker = new L.marker(event.latlng).addTo(map);
-        tempMarker.on("popupopen", tempMarkerPopupOpen(map));
+        tempMarker.on("popupopen", tempMarkerPopupOpen(map, mapData.id));
         tempMarker
           .bindPopup(
             `

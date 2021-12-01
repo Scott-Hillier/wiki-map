@@ -3,18 +3,22 @@ const router = express.Router();
 const pointDataHelper = require("../db-helper/point.helper");
 
 module.exports = (db) => {
-  const { getPointsWithMapId, getPointWithMapAndPointId, deletePoint } = pointDataHelper(db);
+  const {
+    getPointsWithMapId,
+    getPointWithMapAndPointId,
+    deletePoint,
+    addPoint,
+  } = pointDataHelper(db);
 
   //@@ private route /points
   //auth user adds a point in a map
   router.post("/new-point", (req, res) => {
-    addPoint(req.body, db).then((data) => res.json(data));
+    addPoint(req.body).then((data) => res.json(data));
   });
 
   //@@ public route /points
   //get a point with map ID && point ID
   router.get("/:mapId/:pointId", (req, res) => {
-    // console.log("getting a point router");
     return getPointWithMapAndPointId(req.params.mapId, req.params.pointId).then(
       (point) => {
         res.json(point);
@@ -31,7 +35,7 @@ module.exports = (db) => {
   //@@ private route /points
   // auth user deletes a point with map ID && point ID
   router.delete("/:mapId/:pointId", (req, res) => {
-    console.log('inside delete route reached');
+    console.log("inside delete route reached");
     deletePoint(req.params.pointId).then((data) => res.json(data));
   });
 
