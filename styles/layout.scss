@@ -14,7 +14,6 @@ html {
 .container,
 .c1,
 .c2,
-.c3,
 .c4,
 .c5 {
   width: 100%;
@@ -33,29 +32,8 @@ html {
   }
 }
 
-.c3 {
-  // border: 2px dotted white;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  flex-grow: 1;
-
-  .point-submission-box {
-    display: none;
-  }
-
-  .display {
-    display: block;
-  }
-}
 .c5 {
-  // border: 2px dotted white;
-  height: 65px;
-  padding: 0px 15px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  text-align: center;
 }
 
 .map-container {
@@ -210,84 +188,50 @@ form.new-map {
   height: 85%;
 }
 
-.c3 .edit-point {
+.point-submission-box {
+  padding-top: 15px;
+  color: black;
+  width: 50%;
+  margin: 0 auto;
   display: flex;
-  justify-content: space-around;
-  width: 70%;
+  flex-direction: column;
+  align-items: center;
+  display: none;
 
-  form .required label:after {
-    color: #e32;
-    content: "*";
-    display: inline;
-    font-weight: bold;
+  .edit-point {
+    height: 100%;
+    padding-bottom: 50px;
     display: flex;
     flex-direction: column;
-    border: 2px solid red;
-  }
+    justify-content: center;
 
-  .form-field {
-    // border: 2px dotted white;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0px;
-    display: flex;
-    flex-direction: column;
+    .form-field {
+      // border: 2px dotted white;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0px;
 
-    input {
-      width: 350px;
-      margin: 0px 20px;
+      input {
+        width: 350px;
+      }
+    }
+
+    .point-form-dynamic-button {
+      margin-top: 20px;
+      font-size: 20px;
     }
   }
 }
 
-form .required label:after {
-  color: #e32;
-  content: "*";
-  display: inline;
-  font-weight: bold;
+.display {
+  display: block;
 }
 
-// .c3 {
-//   display: none;
-// }
-
-// .sidenav {
-//   height: 100%;
-//   width: 0;
-//   position: fixed;
-//   z-index: 1;
-//   top: 0;
-//   left: 0;
-//   background-color: #111;
-//   overflow-x: hidden;
-//   transition: 0.5s;
-//   padding-top: 60px;
-// }
-
-// .sidenav a {
-//   padding: 8px 8px 8px 32px;
-//   text-decoration: none;
-//   font-size: 25px;
-//   color: #818181;
-//   display: block;
-//   transition: 0.3s;
-// }
-
-// .sidenav a:hover {
-//   color: #f1f1f1;
-// }
-
-// .sidenav .closebtn {
-//   position: absolute;
-//   top: 0;
-//   right: 25px;
-//   font-size: 36px;
-//   margin-left: 50px;
-// }
-
-// @media screen and (max-height: 450px) {
-//   .sidenav {padding-top: 15px;}
-//   .sidenav a {font-size: 18px;}
+// form .required label:after {
+//   color: #e32;
+//   content: "*";
+//   display: inline;
+//   font-weight: bold;
 // }

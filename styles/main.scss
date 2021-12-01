@@ -19,7 +19,7 @@
 //   );
 // }
 
-@import 'foundation/_variables';
+@import "foundation/_variables";
 
 body {
   color: black;
@@ -35,22 +35,14 @@ body {
 .c1 {
   background-color: $color-palette-1a;
 }
-.c2 {
-  background-color: $color-palette-1b;
-}
-.c3 {
-  background-color: $color-palette-1c;
-}
-.c4 {
-  background-color: $color-palette-1d;
-}
-.c5 {
-  background-color: $color-palette-1f;
-}
 
 a {
   color: white;
   text-decoration: none;
-  &:hover { text-decoration: underline; }
-  &:active { color: black; }
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active {
+    color: black;
+  }
 }
