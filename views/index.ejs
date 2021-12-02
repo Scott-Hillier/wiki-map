@@ -11,13 +11,14 @@
         <div class="map-container">
           <div class="map-list">
             <h2>MAPS</h2>
-            <% let counter = 0; %>
             <div>
-              <% for (const map of maps) { %> <%
-              console.log(favorites[counter]?.id) %>
+              <% for (const map of maps) { %>
               <div
                 class="map-name-favorite"
-                style="display: flex; justify-content: space-between"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                "
               >
                 <form class="map-item-box">
                   <label class="map-item" id="<%=map.id%>"
@@ -25,14 +26,10 @@
                     <input hidden value="<%=map.id%>" type="submit" />
                   </label>
                 </form>
-                <% if (favorites[counter]?.id === map.id &&
-                favorites[counter]?.isfavorite === true) { %>
-                <button id="favorite" class="fas fa-heart i-heart red"></button>
-                <% } else { %>
+                <!-- <button id="favorite" class="fas fa-heart i-heart red"></button> -->
                 <button id="favorite" class="fas fa-heart i-heart"></button>
-                <% } %>
               </div>
-              <% counter++ %> <% } %>
+              <% } %>
             </div>
           </div>
 
