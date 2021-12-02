@@ -5,14 +5,14 @@
   </head>
   <body>
     <div class="container">
-      <div class="c1"><%- include('partials/_header') %></div>
+      <div class="c1"><header><%- include('partials/_header') %></header></div>
 
       <div class="c2">
         <div class="map-container">
           <div class="map-list">
             <h2>MAPS</h2>
             <div>
-              <% for (const map of maps) { %>
+              <% for (const map of maps) { %> <% console.log(map) %>
               <div
                 class="map-name-favorite"
                 style="display: flex; justify-content: space-between"
@@ -23,7 +23,12 @@
                     <input hidden value="<%=map.id%>" type="submit" />
                   </label>
                 </form>
-                <% console.log("INDEX.EJS: ", isfavorite) %>
+                <% if (map.user_id === isfavorite.user_id && map.id ===
+                isfavorite.map_id && isfavorite.isfavorite === true) { %>
+                <button id="favorite" class="fas fa-heart i-heart red"></button>
+                <% } else { %>
+                <button id="favorite" class="fas fa-heart i-heart"></button>
+                <% } %>
               </div>
               <% } %>
             </div>
