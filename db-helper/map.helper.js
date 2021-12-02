@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 module.exports = (db) => {
   const getAllPublicMaps = (userId) => {
     let queryString;
@@ -42,54 +41,9 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
-  //===============================
-  // const getAllAvailableMaps = () => {
-  //   return db
-  //     .query(
-  //       `
-  //       SELECT * FROM maps WHERE isPrivate = FALSE;`
-  //     )
-  //     .then((result) => result.rows)
-  //     .catch((err) => console.log(err.message));
-  // };
-
-  // const getUserMaps = (user_id) => {
-  //   return db
-  //     .query(
-  //       `
-  //     SELECT * FROM maps WHERE user_id = $1;`,
-  //       [user_id]
-  //     )
-  //     .then((result) => result.rows)
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // };
-
-  // const deleteMap = (map_id) => {
-  //   return db
-  //     .query(`DELETE FROM maps WHERE map_id = $1;`, [map_id])
-  //     .then((result) => result.rows)
-  //     .catch((err) => {
-  //       res.status(500).json({ error: err.message });
-  //     });
-  // };
-
-  // const favoriteMap = (map_id, status) => {
-  //   return db
-  //     .query(`UPDATE profiles SET isFavorite = $1 WHERE id = $2;`, [
-  //       status,
-  //       map_id,
-  //     ])
-  //     .catch((err) => console.log(err.message));
-  // };
-
   return {
     getAllPublicMaps,
     createMap,
     getMapWithMapId,
-    // getUserMaps,
-    // deleteMap,
-    // favoriteMap,
   };
 };

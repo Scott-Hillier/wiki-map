@@ -111,6 +111,12 @@ const startMap = (mapData, pointArr) => {
 };
 
 $(document).ready(() => {
+
+  // on nav Create Map click, toggle display
+  $("#nav-create-map").on("click", () => {
+    $(".new-map-submission-box").toggleClass("display");
+  });
+
   //set listener to new-map button =================
   $(".new-map").on("submit", (event) => {
     event.preventDefault();
@@ -149,7 +155,7 @@ $(document).ready(() => {
         tempMarker.on("popupopen", tempMarkerPopupOpen(map, mapData.id));
         tempMarker
           .bindPopup(
-            `<span style="font-size: 14px;">You want to add?</span><br>
+            `<span style="font-size: 14px;">Add a point?</span><br>
             <form class="temp-marker-add-form" style="display: inline-block; margin-right: 5px;">
             <input value=${event.latlng.lat} class="point-lat" hidden />
             <input value=${event.latlng.lng} class="point-lng" hidden />
