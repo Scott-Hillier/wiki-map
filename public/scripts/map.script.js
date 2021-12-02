@@ -4,6 +4,7 @@ const onPopupOpen = () => {
   $(".marker-edit-button").on("click", () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
+    $(".new-map-submission-box").removeClass("display");
 
     $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) => {
       $(".point-form-dynamic-title").text(
@@ -143,6 +144,10 @@ $(document).ready(() => {
   $(".map-item-box").on("submit", (event) => {
     event.preventDefault();
     const mapId = event.target.querySelector("input").value;
+
+    // highlight selected map
+    $(".map-item").css("color", '');
+    $(`#${mapId}`).css("color", "#33b190");
 
     Promise.all([
       $.ajax({ type: "GET", url: `/maps/${mapId}` }),
