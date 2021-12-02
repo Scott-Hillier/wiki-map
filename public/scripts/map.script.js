@@ -31,7 +31,12 @@ const onPopupOpen = () => {
       .then(() => {
         window.location.reload();
       })
-      .catch(() => alert("Please log in first"));
+      .catch((err) => {
+        console.log("error status code:", err.status);
+        if (err.status === 401) {
+          return alert("Please log in first");
+        }
+      });
   });
 };
 
