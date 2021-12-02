@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../auth-middleware/auth-middleware");
 const pointDataHelper = require("../db-helper/point.helper");
 
 module.exports = (db) => {
@@ -13,7 +14,7 @@ module.exports = (db) => {
 
   //@@ private route /points
   //auth user adds a point in a map
-  router.post("/new-point", (req, res) => {
+  router.post("/new-point", authMiddleware, (req, res) => {
     addPoint(req.body).then((data) => res.json(data));
   });
 
@@ -34,16 +35,16 @@ module.exports = (db) => {
   });
 
   //@@ public route /points
-  //get all point from a map
-  router.put("/:pointId", (req, res) => {
-    console.log(req.body);
-    editPointWithPointId(req.params.pointId, req.body).then((point) => res.json(point));
+  //update point ID
+  router.put("/:pointId", authMiddleware, (req, res) => {
+    editPointWithPointId(req.params.pointId, req.body).then((point) =>
+      res.json(point)
+    );
   });
 
   //@@ private route /points
   // auth user deletes a point with map ID && point ID
-  router.delete("/:mapId/:pointId", (req, res) => {
-    console.log("inside delete route reached");
+  router.delete("/:mapId/:pointId", authMiddleware, (req, res) => {
     deletePoint(req.params.pointId).then((data) => res.json(data));
   });
 

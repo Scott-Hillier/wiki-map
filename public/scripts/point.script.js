@@ -39,10 +39,15 @@ $(document).ready(() => {
           type: "post",
           url: `/contributions/${mapId}`,
         }),
-      ]).then(() => {
-        $(".point-submission-box").removeClass("display");
-        window.location.reload();
-      });
+      ])
+        .then((res) => {
+          cosole.log("point script then: ", res);
+          $(".point-submission-box").removeClass("display");
+          window.location.reload();
+        })
+        .catch(() => {
+          alert("Please log in first");
+        });
     } else {
       $.ajax({
         type: "put",
@@ -54,10 +59,14 @@ $(document).ready(() => {
           address,
           type,
         },
-      }).then(() => {
-        $(".point-submission-box").removeClass("display");
-        window.location.reload();
-      });
+      })
+        .then(() => {
+          $(".point-submission-box").removeClass("display");
+          window.location.reload();
+        })
+        .catch(() => {
+          alert("Please log in first");
+        });
     }
   });
 });

@@ -189,7 +189,7 @@ html {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    height: 110%;
+    height: 100%;
     width: 70%;
   }
 
@@ -247,10 +247,3 @@ html {
 .display {
   display: block;
 }
-
-// form .required label:after {
-//   color: #e32;
-//   content: "*";
-//   display: inline;
-//   font-weight: bold;
-// }

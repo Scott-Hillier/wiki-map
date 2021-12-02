@@ -4,6 +4,7 @@ const onPopupOpen = () => {
   $(".marker-edit-button").on("click", () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
+    $(".new-map-submission-box").removeClass("display");
 
     $.ajax({ type: "GET", url: `points/${mapId}/${pointId}` }).then((data) => {
       $(".point-form-dynamic-title").text(
@@ -28,7 +29,7 @@ const onPopupOpen = () => {
 
     $.ajax({ type: "DELETE", url: `/points/${mapId}/${pointId}` }).then(() => {
       window.location.reload();
-    });
+    }).catch(()=>alert('Please log in first'));
   });
 };
 
@@ -36,6 +37,7 @@ const tempMarkerPopupOpen = (map, mapId) => (event) => {
   $(".tempMarker-add-button").on("click", () => {
     $(".temp-marker-add-form").on("submit", (e) => {
       e.preventDefault();
+      $(".new-map-submission-box").removeClass("display");
       const latitude = $(".point-lat").val();
       const longitude = $(".point-lng").val();
 
@@ -114,7 +116,11 @@ $(document).ready(() => {
 
   // on nav Create Map click, toggle display
   $("#nav-create-map").on("click", () => {
+    $(".point-submission-box").removeClass("display");
     $(".new-map-submission-box").toggleClass("display");
+  });
+  $(".close-point-form").on("click", () => {
+    $(".new-map-submission-box").removeClass("display");
   });
 
   //set listener to new-map button =================
@@ -138,6 +144,10 @@ $(document).ready(() => {
   $(".map-item-box").on("submit", (event) => {
     event.preventDefault();
     const mapId = event.target.querySelector("input").value;
+
+    // highlight selected map
+    $(".map-item").css("color", '');
+    $(`#${mapId}`).css("color", "#33b190");
 
     Promise.all([
       $.ajax({ type: "GET", url: `/maps/${mapId}` }),

@@ -10,9 +10,7 @@ module.exports = (db) => {
       .then((result) => {
         return result.rows;
       })
-      .catch((err) => {
-        console.log({ error: err.message });
-      });
+      .catch((err) => err.message);
   };
 
   const getPointWithMapAndPointId = (mapId, pointId) => {
@@ -23,9 +21,7 @@ module.exports = (db) => {
     return db
       .query(queryString, queryParams)
       .then((result) => result.rows[0])
-      .catch((err) => {
-        console.log({ error: err.message });
-      });
+      .catch((err) => err.message);
   };
 
   const addPoint = ({
@@ -56,9 +52,7 @@ module.exports = (db) => {
     return db
       .query(queryString, queryParams)
       .then((res) => res.rows[0])
-      .catch((err) => {
-        console.log({ error: err.message });
-      });
+      .catch((err) => err.message);
   };
 
   // point is an object with the changes the user wants to implement
@@ -70,15 +64,14 @@ module.exports = (db) => {
     return db
       .query(queryString, queryParams)
       .then((res) => res.rows[0])
-      .catch((err) => console.log(err.message));
+      .catch((err) => err.message);
   };
 
   const deletePoint = (point_id) => {
-    console.log("inside deletePoint func");
     return db
       .query(`DELETE FROM points WHERE id = $1;`, [point_id])
       .then((res) => res.rows)
-      .catch((err) => console.log(err.message));
+      .catch((err) => err.message);
   };
 
   return {
