@@ -1,0 +1,33 @@
+<div class="new-map-submission-box">
+
+  <div
+  style="display: flex; justify-content: space-between; margin-bottom: 20px"
+  >
+    <h2
+      style="margin: unset; border: none"
+    >Create New Map</h2>
+    <span class="close-point-form" style="cursor: pointer; font-size: 20px">
+      close
+    </span>
+  </div>
+
+  <form class="new-map">
+    <div class="form-field required">
+      <label for="new-map-name">Enter map name:</label>
+      <input type="text" id="new-map-name" placeholder="e.g. Best Places to Eat Around Town!" />
+    </div>
+
+    <div class="form-field required">
+      <span>Set map privacy:</span>
+        <select id="private-option">
+          <option name="public" value="false">public</option>
+          <option name="private" value="true">private</option>
+        </select>
+    </div>
+
+    <div class="form-submit">
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+
+</div>
