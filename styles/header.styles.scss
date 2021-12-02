@@ -27,6 +27,12 @@
     align-items: center;
     height: 100%;
     width: 70%;
+    color: white;
+
+    > a {
+      text-decoration: none;
+      cursor: pointer;
+    }
 
     #nav-create-map {
       cursor: pointer;
