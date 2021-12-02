@@ -73,9 +73,8 @@ app.get("/", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
-    getUserFavorites(req.session.user_id),
+    getUserFavorites(req.session.userId),
   ]).then((data) => {
-    console.log(data[2]);
     res.render("index", {
       user: data[0],
       maps: data[1],
