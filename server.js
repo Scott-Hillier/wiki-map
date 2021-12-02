@@ -73,12 +73,12 @@ app.get("/", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
-    getUserFavorites(req.session.userId),
+    // getUserFavorites(req.session.userId),
   ]).then((data) => {
     res.render("index", {
       user: data[0],
       maps: data[1],
-      favorites: data[2],
+      // favorites: data[2],
     });
   });
 });
