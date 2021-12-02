@@ -29,6 +29,11 @@
     width: 70%;
     color: white;
 
+    > a {
+      text-decoration: none;
+      cursor: pointer;
+    }
+
     .sign-out-box {
       margin-top: 20px;
       > p {
