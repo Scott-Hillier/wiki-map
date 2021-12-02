@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
+const authMiddleware = require("../auth-middleware/auth-middleware");
+
 const userDataHelper = require("../db-helper/user.helper");
 const mapDataHelper = require("../db-helper/map.helper");
 
@@ -17,16 +19,8 @@ module.exports = (db) => {
   });
 
   //@@ PRIVATE /maps
-  // view create map page
-  router.get("/new", (req, res) => {
-    getUserWithUserId(req.session.userId).then((user) => {
-      res.render("create_map", { user: user });
-    });
-  });
-
-  //@@ PRIVATE /maps
   // create map
-  router.post("/new", (req, res) => {
+  router.post("/new", authMiddleware, (req, res) => {
     const { mapName, privateOption } = req.body;
     createMap(req.session.userId, mapName, privateOption).then((data) => {
       if (!data) {
