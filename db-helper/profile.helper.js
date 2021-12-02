@@ -13,7 +13,7 @@ module.exports = (db) => {
   const getFavoriteProfileMaps = function (user_id, isFavourite) {
     return db
       .query(
-        `SELECT * FROM favourites JOIN maps ON map_id = maps.id WHERE favourites.user_id = $1 AND isFavorite = $2;`,
+        `SELECT * FROM favourites JOIN maps ON map_id = maps.id WHERE favourites.user_id = $1 AND isFavorite = $2 ORDER BY maps.id;`,
         [user_id, isFavourite]
       )
       .then((result) => result.rows)
