@@ -51,7 +51,7 @@ const userDataHelper = require("./db-helper/user.helper");
 const mapDataHelper = require("./db-helper/map.helper");
 const profileDataHelper = require("./db-helper/profile.helper");
 const { getUserWithUserId } = userDataHelper(db);
-const { getAllPublicMaps, getUserFavorites } = mapDataHelper(db);
+const { getAllPublicMaps, favoriteThisMap } = mapDataHelper(db);
 const { getFavoriteProfileMaps, getContributorProfileMaps } =
   profileDataHelper(db);
 
@@ -73,12 +73,10 @@ app.get("/", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
-    // getUserFavorites(req.session.userId),
   ]).then((data) => {
     res.render("index", {
       user: data[0],
       maps: data[1],
-      // favorites: data[2],
     });
   });
 });
@@ -87,6 +85,7 @@ app.get("/", (req, res) => {
 app.get("/profile", (req, res) => {
   if (!req.session.userId) {
     return getAllPublicMaps().then((maps) => {
+      console.log(maps);
       return res.render("index", { user: null, maps: maps });
     });
   }
@@ -94,10 +93,12 @@ app.get("/profile", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
+    getUserFavorites(req.session.userId),
   ]).then((data) => {
     res.render("profile", {
       user: data[0],
       maps: data[1],
+      favorites: data[2],
     });
   });
 });
@@ -105,6 +106,7 @@ app.get("/profile", (req, res) => {
 app.get("/profile-favorite-maps", (req, res) => {
   if (!req.session.userId) {
     return getAllPublicMaps().then((maps) => {
+      console.log(maps);
       return res.render("index", { user: null, maps: maps });
     });
   }
@@ -122,6 +124,7 @@ app.get("/profile-favorite-maps", (req, res) => {
 app.get("/profile-contributor-maps", (req, res) => {
   if (!req.session.userId) {
     return getAllPublicMaps().then((maps) => {
+      console.log(maps);
       return res.render("index", { user: null, maps: maps });
     });
   }
@@ -135,6 +138,13 @@ app.get("/profile-contributor-maps", (req, res) => {
     });
   });
 });
+
+// app.post("/favorite-button", (req, res) => {
+//   console.log("HIT FAVORITE BUTTON");
+//   favoriteThisMap(req.session.userId, req.session.mapId).then((data) => {
+//     console.log(data);
+//   });
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
