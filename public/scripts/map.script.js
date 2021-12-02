@@ -36,6 +36,7 @@ const tempMarkerPopupOpen = (map, mapId) => (event) => {
   $(".tempMarker-add-button").on("click", () => {
     $(".temp-marker-add-form").on("submit", (e) => {
       e.preventDefault();
+      $(".new-map-submission-box").removeClass("display");
       const latitude = $(".point-lat").val();
       const longitude = $(".point-lng").val();
 
@@ -114,6 +115,7 @@ $(document).ready(() => {
 
   // on nav Create Map click, toggle display
   $("#nav-create-map").on("click", () => {
+    $(".point-submission-box").removeClass("display");
     $(".new-map-submission-box").toggleClass("display");
   });
   $(".close-point-form").on("click", () => {
