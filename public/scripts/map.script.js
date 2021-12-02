@@ -116,6 +116,9 @@ $(document).ready(() => {
   $("#nav-create-map").on("click", () => {
     $(".new-map-submission-box").toggleClass("display");
   });
+  $(".close-point-form").on("click", () => {
+    $(".new-map-submission-box").removeClass("display");
+  });
 
   //set listener to new-map button =================
   $(".new-map").on("submit", (event) => {
