@@ -4,16 +4,16 @@ module.exports = (db) => {
     let queryString;
     if (userId) {
       queryString = `
-      SELECT * FROM maps WHERE isPrivate = FALSE OR user_id = ${userId}
+      SELECT * FROM maps WHERE isPrivate = FALSE OR user_id = $1
       `;
     } else {
       queryString = `
       SELECT * FROM maps WHERE isPrivate = FALSE
       `;
     }
-
+    const queryParams = [userId];
     return db
-      .query(queryString)
+      .query(queryString, queryParams)
       .then((res) => res.rows)
       .catch((err) => console.log(err.message));
   };
@@ -21,10 +21,10 @@ module.exports = (db) => {
   const createMap = (userId, mapName, isPrivate) => {
     const queryString = `
       INSERT INTO maps (user_id, name, isPrivate )
-      VALUES (${userId}, $1, ${isPrivate})
+      VALUES ($3, $1, $2)
       RETURNING *;
       `;
-    const queryParams = [mapName];
+    const queryParams = [userId, mapName, isPrivate];
     return db
       .query(queryString, queryParams)
       .then((res) => res.rows[0])
@@ -41,6 +41,42 @@ module.exports = (db) => {
       .then((result) => result.rows[0])
       .catch((err) => console.log(err.message));
   };
+
+  const getIsFavorite = (mapId) => {
+    return db
+      .query(`SELECT * FROM maps FULL JOIN favourites ON maps.id = $1;`, [
+        mapId,
+      ])
+      .then((res) => res.rows)
+      .catch((err) => console.log(err));
+  };
+
+  // const favoriteThisMap = (user_id, map_id) => {
+  //   if (
+  //     db
+  //       .query(
+  //         `SELECT isfavorite FROM favourites WHERE user_id = $1 AND map_id = $2;`,
+  //         [user_id, map_id]
+  //       )
+  //       .then((res) => res.rows)
+  //   ) {
+  //     return db
+  //       .query(
+  //         `UPDATE favourites SET isfavorite = FALSE WHERE user_id = $1 AND map_id = $2 RETURNING*;`,
+  //         [user_id, map_id]
+  //       )
+  //       .then((res) => res.rows)
+  //       .catch((err) => console.log(err.message));
+  //   } else {
+  //     return db
+  //       .query(
+  //         `UPDATE favourites SET isfavorite = TRUE WHERE user_id = $1 AND map_id = $2 RETURNING*;`,
+  //         [user_id, map_id]
+  //       )
+  //       .then((res) => res.rows)
+  //       .catch((err) => console.log(err.message));
+  //   }
+  // };
 
   //===============================
   // const getAllAvailableMaps = () => {
@@ -75,21 +111,13 @@ module.exports = (db) => {
   //     });
   // };
 
-  // const favoriteMap = (map_id, status) => {
-  //   return db
-  //     .query(`UPDATE profiles SET isFavorite = $1 WHERE id = $2;`, [
-  //       status,
-  //       map_id,
-  //     ])
-  //     .catch((err) => console.log(err.message));
-  // };
-
   return {
     getAllPublicMaps,
     createMap,
     getMapWithMapId,
+    getIsFavorite,
+    // favoriteThisMap,
     // getUserMaps,
     // deleteMap,
-    // favoriteMap,
   };
 };

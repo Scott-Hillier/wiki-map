@@ -165,4 +165,20 @@ $(document).ready(() => {
       map.on("contextmenu", onRightClick);
     });
   });
+
+  $(".i-heart").on("click", function (event) {
+    event.preventDefault();
+    console.log("SOMETHING", event.target);
+    event.target.classList.toggle("red");
+  });
+
+  // $(".favorite").submit((event) => {
+  //   event.preventDefault();
+
+  //   $.ajax({
+  //     url: "/favorite",
+  //     type: "POST",
+  //     data: { mapName, privateOption },
+  //   }).then(() => (document.location.href = "/"));
+  // });
 });

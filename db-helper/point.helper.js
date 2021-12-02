@@ -2,10 +2,11 @@
 module.exports = (db) => {
   const getPointsWithMapId = (mapId) => {
     const queryString = `
-    SELECT * FROM points WHERE map_id = ${mapId}
+    SELECT * FROM points WHERE map_id = $1
     `;
+    const queryParams = [mapId];
     return db
-      .query(queryString)
+      .query(queryString, queryParams)
       .then((result) => {
         return result.rows;
       })
@@ -16,10 +17,11 @@ module.exports = (db) => {
 
   const getPointWithMapAndPointId = (mapId, pointId) => {
     const queryString = `
-    SELECT * FROM points WHERE map_id = ${mapId} AND id = ${pointId};
+    SELECT * FROM points WHERE map_id = $1 AND id = $2;
     `;
+    const queryParams = [mapId, pointId];
     return db
-      .query(queryString)
+      .query(queryString, queryParams)
       .then((result) => result.rows[0])
       .catch((err) => {
         console.log({ error: err.message });

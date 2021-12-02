@@ -1,9 +1,9 @@
 module.exports = (db) => {
   const getUserWithUserId = (userId) => {
-    const queryParams = [userId];
     const queryString = `
     SELECT * FROM users WHERE id = $1;
     `;
+    const queryParams = [userId];
 
     return db
       .query(queryString, queryParams)
