@@ -28,7 +28,7 @@ const onPopupOpen = () => {
 
     $.ajax({ type: "DELETE", url: `/points/${mapId}/${pointId}` }).then(() => {
       window.location.reload();
-    });
+    }).catch(()=>alert('Please log in first'));
   });
 };
 

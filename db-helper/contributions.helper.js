@@ -14,7 +14,7 @@ module.exports = (db) => {
         }
         return data.rows[0];
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => `contribution helper message: ${err.message}`);
   };
 
   return { setAsContributorWithUserIdAndMapId };
