@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 module.exports = (db) => {
   const getAllPublicMaps = (userId) => {
     let queryString;
@@ -42,6 +41,7 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
+<<<<<<< HEAD
   const getIsFavorite = (mapId) => {
     return db
       .query(`SELECT * FROM maps FULL JOIN favourites ON maps.id = $1;`, [
@@ -111,13 +111,18 @@ module.exports = (db) => {
   //     });
   // };
 
+=======
+>>>>>>> master
   return {
     getAllPublicMaps,
     createMap,
     getMapWithMapId,
+<<<<<<< HEAD
     getIsFavorite,
     // favoriteThisMap,
     // getUserMaps,
     // deleteMap,
+=======
+>>>>>>> master
   };
 };

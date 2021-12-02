@@ -45,6 +45,7 @@ const usersRoutes = require("./routes/users.route");
 const mapsRoutes = require("./routes/maps.route");
 const pointsRoutes = require("./routes/points.route");
 const profilesRoutes = require("./routes/profiles.route");
+const contributionRoutes = require("./routes/contributions.route");
 
 const userDataHelper = require("./db-helper/user.helper");
 const mapDataHelper = require("./db-helper/map.helper");
@@ -59,6 +60,7 @@ app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/points", pointsRoutes(db));
 app.use("/profile", profilesRoutes(db));
+app.use("/contributions", contributionRoutes(db));
 
 // Home page
 app.get("/", (req, res) => {

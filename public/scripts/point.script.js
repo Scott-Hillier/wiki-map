@@ -2,7 +2,7 @@
 // eslint-disable-next-line no-undef
 $(document).ready(() => {
   $(".close-point-form").on("click", () => {
-    $(".point-submission-box").toggleClass("display");
+    $(".point-submission-box").removeClass("display");
   });
 
   $(".edit-point").on("submit", (event) => {
@@ -20,21 +20,27 @@ $(document).ready(() => {
     const update = $("#point-update").val();
 
     if (!update) {
-      $.ajax({
-        type: "post",
-        url: "/points/new-point",
-        data: {
-          title,
-          description,
-          imageUrl,
-          address,
-          type,
-          latitude,
-          longitude,
-          mapId,
-        },
-      }).then(() => {
-        $(".point-submission-box").toggleClass("display");
+      Promise.all([
+        $.ajax({
+          type: "post",
+          url: "/points/new-point",
+          data: {
+            title,
+            description,
+            imageUrl,
+            address,
+            type,
+            latitude,
+            longitude,
+            mapId,
+          },
+        }),
+        $.ajax({
+          type: "post",
+          url: `/contributions/${mapId}`,
+        }),
+      ]).then(() => {
+        $(".point-submission-box").removeClass("display");
         window.location.reload();
       });
     } else {
@@ -49,7 +55,7 @@ $(document).ready(() => {
           type,
         },
       }).then(() => {
-        $(".point-submission-box").toggleClass("display");
+        $(".point-submission-box").removeClass("display");
         window.location.reload();
       });
     }
