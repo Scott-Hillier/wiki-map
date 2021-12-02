@@ -27,9 +27,16 @@ const onPopupOpen = () => {
     const pointId = $(".point-id").text();
     const mapId = $(".map-id").text();
 
-    $.ajax({ type: "DELETE", url: `/points/${mapId}/${pointId}` }).then(() => {
-      window.location.reload();
-    }).catch(()=>alert('Please log in first'));
+    $.ajax({ type: "DELETE", url: `/points/${mapId}/${pointId}` })
+      .then(() => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log("error status code:", err.status);
+        if (err.status === 401) {
+          return alert("Please log in first");
+        }
+      });
   });
 };
 
@@ -113,7 +120,6 @@ const startMap = (mapData, pointArr) => {
 };
 
 $(document).ready(() => {
-
   // on nav Create Map click, toggle display
   $("#nav-create-map").on("click", () => {
     $(".point-submission-box").removeClass("display");
@@ -146,7 +152,7 @@ $(document).ready(() => {
     const mapId = event.target.querySelector("input").value;
 
     // highlight selected map
-    $(".map-item").css("color", '');
+    $(".map-item").css("color", "");
     $(`#${mapId}`).css("color", "#33b190");
 
     Promise.all([

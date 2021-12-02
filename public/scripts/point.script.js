@@ -40,13 +40,15 @@ $(document).ready(() => {
           url: `/contributions/${mapId}`,
         }),
       ])
-        .then((res) => {
-          cosole.log("point script then: ", res);
+        .then(() => {
           $(".point-submission-box").removeClass("display");
           window.location.reload();
         })
-        .catch(() => {
-          alert("Please log in first");
+        .catch((err) => {
+          console.log("error status code:", err.status);
+          if (err.status === 401) {
+            return alert("Please log in first");
+          }
         });
     } else {
       $.ajax({
@@ -64,8 +66,11 @@ $(document).ready(() => {
           $(".point-submission-box").removeClass("display");
           window.location.reload();
         })
-        .catch(() => {
-          alert("Please log in first");
+        .catch((err) => {
+          console.log('error status code:', err.status);
+          if (err.status === 401) {
+            return alert("Please log in first");
+          }
         });
     }
   });
