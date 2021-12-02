@@ -16,5 +16,21 @@ module.exports = (db) => {
       });
   };
 
-  return { getUserWithUserId };
+  const getUserDataUponSignIn = (userId) => {
+    const queryString = `
+    SELECT DISTINCT maps.id as mapid, maps.name as mapname, users.id as userid, users.name as username, isprivate, iscontributed, isfavorite
+    FROM maps
+    JOIN users ON users.id = maps.user_id
+    LEFT OUTER JOIN contributions ON contributions.user_id = users.id 
+    LEFT JOIN favourites on favourites.user_id = users.id
+    WHERE (users.id = ${userId} AND isfavorite = true  ) OR (isprivate = false AND isfavorite = true )
+    ORDER BY mapid
+    `;
+    return db
+      .query(queryString)
+      .then((data) => data.rows)
+      .catch((err) => err.message);
+  };
+
+  return { getUserWithUserId, getUserDataUponSignIn };
 };

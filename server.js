@@ -45,22 +45,28 @@ const usersRoutes = require("./routes/users.route");
 const mapsRoutes = require("./routes/maps.route");
 const pointsRoutes = require("./routes/points.route");
 const profilesRoutes = require("./routes/profiles.route");
-const contributionRoutes = require("./routes/contributions.route");
+const contributionsRoutes = require("./routes/contributions.route");
+const favoritesRoute = require("./routes/favorites.route");
 
 const userDataHelper = require("./db-helper/user.helper");
 const mapDataHelper = require("./db-helper/map.helper");
 const profileDataHelper = require("./db-helper/profile.helper");
+const contributionDataHelper = require("./db-helper/contributions.helper");
 const { getUserWithUserId } = userDataHelper(db);
 const { getAllPublicMaps, getUserFavorites } = mapDataHelper(db);
 const { getFavoriteProfileMaps, getContributorProfileMaps } =
   profileDataHelper(db);
+const { getContributedMapByUser } = contributionDataHelper(db);
+
+const { getCombinedMapData } = require("./helpers/get-combined-map");
 
 // Mount all resource routes
 app.use("/users", usersRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/points", pointsRoutes(db));
 app.use("/profile", profilesRoutes(db));
-app.use("/contributions", contributionRoutes(db));
+app.use("/contributions", contributionsRoutes(db));
+app.use("/favorites", favoritesRoute(db));
 
 // Home page
 app.get("/", (req, res) => {
@@ -73,13 +79,25 @@ app.get("/", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
-    getFavoriteProfileMaps(req.session.userId, true),
+    getContributedMapByUser(req.session.userId),
+    getFavoriteProfileMaps(req.session.userId),
   ]).then((data) => {
     res.render("index", {
       user: data[0],
-      maps: data[1],
-      favorites: data[2],
+      maps: getCombinedMapData(
+        getCombinedMapData(data[1], data[2], "contributed"),
+        data[3],
+        "favorite"
+      ),
     });
+    // console.log("user data : ", data[0]);
+    // console.log("all maps data : ", data[1]);
+    // console.log("cont maps data : ", data[2]);
+    // console.log(getCombinedMapData(data[1], data[2], "contributed"));
+    // console.log("fav maps", data[3]);
+    // const contMaps = getCombinedMapData(data[1], data[2], "contributed");
+
+    // console.log(getCombinedMapData(contMaps, data[3], "favorite"));
   });
 });
 

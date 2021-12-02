@@ -20,22 +20,8 @@ VALUES
   (3, 'twilight movvie scene', 'Twilight', 'http://bengkel.kaodim.com/wp-content/uploads/2015/01/oldmcdonalds-edit.jpg', 49.2652413429455, -123.14006878784746, '1610 Stanley park', 'Restaurant'),
   (3, 'Harrypotter movie scene', 'Harry Potter', 'http://bengkel.kaodim.com/wp-content/uploads/2015/01/oldmcdonalds-edit.jpg', 49.2802402429455, -123.1390578784746, '1610 Davie St.', 'Restaurant')
  
-INSERT INTO favourites (user_id, map_id, isFavorite)
+INSERT INTO favorites (user_id, map_id, isFavorite)
 VALUES
-  (1, 1, TRUE),
-  (2, 2, FALSE),
-  (3, 3, FALSE),
-  (4, 4, FALSE),
-  (1, 5, FALSE),
-  (1, 6, FALSE),
-  (5, 1, TRUE)
 
 INSERT INTO contributions (user_id, map_id, isContributed)
 VALUES
-  (1, 1, TRUE),
-  (2, 2, TRUE),
-  (3, 3, TRUE),
-  (4, 4, TRUE),
-  (1, 5, FALSE),
-  (1, 6, FALSE),
-  (5, 1, FALSE)

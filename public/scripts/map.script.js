@@ -143,6 +143,24 @@ $(document).ready(() => {
     }).then(() => (document.location.href = "/"));
   });
 
+  $(".set-favorite-btn").on("click", (event) => {
+    const mapId = event.target.querySelector("input").value;
+
+    $.ajax({
+      type: "POST",
+      url: `/favorites/${mapId}/set`,
+    }).then(() => (document.location.href = "/"));
+  });
+
+  $(".unset-favorite-btn").on("click", (event) => {
+    const mapId = event.target.querySelector("input").value;
+
+    $.ajax({
+      type: "POST",
+      url: `/favorites/${mapId}/unset`,
+    }).then(() => (document.location.href = "/"));
+  });
+
   //display map ======================================
   let map;
   map = startMap();
@@ -187,19 +205,4 @@ $(document).ready(() => {
       map.on("contextmenu", onRightClick);
     });
   });
-
-  $(".i-heart").on("click", function (event) {
-    event.preventDefault();
-    event.target.classList.toggle("red");
-  });
-
-  // $(".favorite").submit((event) => {
-  //   event.preventDefault();
-
-  //   $.ajax({
-  //     url: "/favorite",
-  //     type: "POST",
-  //     data: { mapName, privateOption },
-  //   }).then(() => (document.location.href = "/"));
-  // });
 });
