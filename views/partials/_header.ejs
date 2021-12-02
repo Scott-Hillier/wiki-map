@@ -1,20 +1,17 @@
-<nav class="navbar">
-  <a class="logo" href="/">
-    <img src="/images/logo.png" alt="Wiki Maps" width="40px" height="40px" />
-    <h1><i class="fab fa-wikipedia-w"></i>IKI MAPS</h1>
-  </a>
+<header>
+  <nav class="navbar">
+    <a class="logo" href="/">
+      <img src="/images/logo.png" alt="Wiki Maps" width="40px" height="40px" />
+      <h1><i class="fab fa-wikipedia-w"></i>IKI MAPS</h1>
+    </a>
 
-  <div class="nav">
-
-    <!-- ejs if (user) -->
-    <div class="left">
+    <div class="nav">
+      <% if(user) { %>
       <a href="/profile">Profile</a>
-      <a href="/maps">Maps</a>
       <a id="nav-create-map">Create Map</a>
-    </div>
-
-    <div class="right">
-      <% if(!user) { %>
+      <% } else {%>
+      <div style="opacity: 0; width: 10px"></div>
+      <% } %> <% if(!user) { %>
       <form class="sign-in-form">
         <input type="text" name="user-id" placeholder="User ID" />
         <button type="submit">Sign in</button>
@@ -23,13 +20,11 @@
       <div class="sign-out-box">
         <p class="signed-in-message">Hi! <%= user.name %></p>
         <form class="sign-out-form">
-          <input hidden name='user-id' value=<%= user.id %>  />
+          <input hidden name="user-id" value="<%=user.id%>"" />
           <p class="sign-out-button">Sign out</p>
         </form>
       </div>
       <% } %>
     </div>
-
-
-  </div>
-</nav>
+  </nav>
+</header>
