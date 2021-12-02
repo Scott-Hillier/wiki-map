@@ -13,9 +13,7 @@ html {
 }
 .container,
 .c1,
-.c2,
-.c4,
-.c5 {
+.c2 {
   width: 100%;
 }
 
@@ -26,7 +24,7 @@ html {
   align-items: center;
   flex-grow: 1;
   height: 60%;
-  background-color: #2d82b7;
+  background-color: white;
   h2 {
     // border: 2px dotted white;
     margin: 0.5em;
