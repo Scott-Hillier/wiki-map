@@ -3,20 +3,12 @@ const router = express.Router();
 
 const authMiddleware = require("../auth-middleware/auth-middleware");
 
-const userDataHelper = require("../db-helper/user.helper");
+// const userDataHelper = require("../db-helper/user.helper");
 const mapDataHelper = require("../db-helper/map.helper");
 
 module.exports = (db) => {
-  const { getUserWithUserId } = userDataHelper(db);
+  // const { getUserWithUserId } = userDataHelper(db);
   const { createMap, getMapWithMapId } = mapDataHelper(db);
-
-  //@@ PRIVATE /maps
-  // view maps page
-  router.get("/", (req, res) => {
-    getUserWithUserId(req.session.userId).then((user) => {
-      res.render("maps", { user: user });
-    });
-  });
 
   //@@ PRIVATE /maps
   // create map

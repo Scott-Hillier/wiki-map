@@ -6,6 +6,7 @@ module.exports = (db) => {
       WHERE NOT EXISTS (SELECT * FROM contributions WHERE user_id = ${userId} AND map_id =  ${mapId})
       RETURNING *
     `;
+
     return db
       .query(queryString)
       .then((data) => {
@@ -14,8 +15,24 @@ module.exports = (db) => {
         }
         return data.rows[0];
       })
-      .catch((err) => `contribution helper message: ${err.message}`);
+      .catch((err) => err.message);
   };
 
-  return { setAsContributorWithUserIdAndMapId };
+  const getContributedMapByUser = (userId) => {
+    const queryString = `
+      SELECT * FROM contributions WHERE user_id = ${userId}
+    `;
+
+    return db
+      .query(queryString)
+      .then((data) => {
+        if (!data) {
+          return "user is already contributor";
+        }
+        return data.rows;
+      })
+      .catch((err) => err.message);
+  };
+
+  return { setAsContributorWithUserIdAndMapId, getContributedMapByUser };
 };

@@ -15,19 +15,29 @@
               <% for (const map of maps) { %>
               <div
                 class="map-name-favorite"
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                "
+                style="display: flex; justify-content: space-between"
               >
                 <form class="map-item-box">
                   <label class="map-item" id="<%=map.id%>"
                     ><%=map.name%>
                     <input hidden value="<%=map.id%>" type="submit" />
                   </label>
+                  <input hidden value="<%=map.favorite%>" type="submit" />
+                  <input hidden value="<%=map.contributed%>" type="submit" />
                 </form>
-                <!-- <button id="favorite" class="fas fa-heart i-heart red"></button> -->
-                <button id="favorite" class="fas fa-heart i-heart"></button>
+                <div>
+                  <% if (map.contributed) { %>
+                  <i class="fas fa-pen"></i>
+                  <% } %> <% if (map.favorite) { %>
+                  <i class="fas fa-heart unset-favorite-btn">
+                    <input hidden value="<%=map.id%>" />
+                  </i>
+                  <% } else { %>
+                  <i class="far fa-heart set-favorite-btn">
+                    <input hidden value="<%=map.id%>" />
+                  </i>
+                  <% } %>
+                </div>
               </div>
               <% } %>
             </div>

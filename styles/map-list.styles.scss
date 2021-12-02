@@ -15,6 +15,12 @@ h2 {
   overflow: auto;
 
   .map-name-favorite {
+    .unset-favorite-btn,
+    .set-favorite-btn {
+      &:hover {
+        cursor: pointer;
+      }
+    }
     display: flex;
     justify-content: space-between;
     border-bottom: solid rgb(180, 180, 180) 1px;
