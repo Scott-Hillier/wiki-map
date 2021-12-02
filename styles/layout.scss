@@ -26,6 +26,7 @@ html {
   align-items: center;
   flex-grow: 1;
   height: 60%;
+  background-color: #2d82b7;
   h2 {
     // border: 2px dotted white;
     margin: 0.5em;
@@ -103,9 +104,7 @@ html {
       text-align: center;
     }
   }
-
 }
-
 
 .profile-page {
   display: flex;

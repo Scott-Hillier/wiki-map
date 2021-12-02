@@ -12,7 +12,7 @@
           <div class="map-list">
             <h2>MAPS</h2>
             <div>
-              <% for (const map of maps) { %> <% console.log(map) %>
+              <% for (const map of maps) { %>
               <div
                 class="map-name-favorite"
                 style="display: flex; justify-content: space-between"
@@ -23,12 +23,10 @@
                     <input hidden value="<%=map.id%>" type="submit" />
                   </label>
                 </form>
-                <% if (map.user_id === isfavorite.user_id && map.id ===
-                isfavorite.map_id && isfavorite.isfavorite === true) { %>
+
                 <button id="favorite" class="fas fa-heart i-heart red"></button>
-                <% } else { %>
+
                 <button id="favorite" class="fas fa-heart i-heart"></button>
-                <% } %>
               </div>
               <% } %>
             </div>

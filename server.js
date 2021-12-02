@@ -51,7 +51,7 @@ const userDataHelper = require("./db-helper/user.helper");
 const mapDataHelper = require("./db-helper/map.helper");
 const profileDataHelper = require("./db-helper/profile.helper");
 const { getUserWithUserId } = userDataHelper(db);
-const { getAllPublicMaps, getIsFavorite } = mapDataHelper(db);
+const { getAllPublicMaps, getUserFavorites } = mapDataHelper(db);
 const { getFavoriteProfileMaps, getContributorProfileMaps } =
   profileDataHelper(db);
 
@@ -73,13 +73,13 @@ app.get("/", (req, res) => {
   Promise.all([
     getUserWithUserId(req.session.userId),
     getAllPublicMaps(req.session.userId),
-    getIsFavorite(req.session.user_id),
+    getUserFavorites(req.session.user_id),
   ]).then((data) => {
-    console.log("DATA: ", data);
+    console.log(data[2]);
     res.render("index", {
       user: data[0],
       maps: data[1],
-      isfavorite: data[2],
+      favorites: data[2],
     });
   });
 });

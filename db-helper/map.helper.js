@@ -41,11 +41,9 @@ module.exports = (db) => {
       .catch((err) => console.log(err.message));
   };
 
-  const getIsFavorite = (mapId) => {
+  const getUserFavorites = (userId) => {
     return db
-      .query(`SELECT * FROM maps FULL JOIN favourites ON maps.id = $1;`, [
-        mapId,
-      ])
+      .query(`SELECT map_id FROM favourites WHERE user_id = $1;`, [userId])
       .then((res) => res.rows)
       .catch((err) => console.log(err));
   };
@@ -114,7 +112,7 @@ module.exports = (db) => {
     getAllPublicMaps,
     createMap,
     getMapWithMapId,
-    getIsFavorite,
+    getUserFavorites,
     // favoriteThisMap,
     // getUserMaps,
     // deleteMap,
