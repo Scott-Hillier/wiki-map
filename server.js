@@ -53,7 +53,7 @@ const mapDataHelper = require("./db-helper/map.helper");
 const profileDataHelper = require("./db-helper/profile.helper");
 const contributionDataHelper = require("./db-helper/contributions.helper");
 const { getUserWithUserId } = userDataHelper(db);
-const { getAllPublicMaps, getUserFavorites } = mapDataHelper(db);
+const { getAllPublicMaps } = mapDataHelper(db);
 const { getFavoriteProfileMaps, getContributorProfileMaps } =
   profileDataHelper(db);
 const { getContributedMapByUser } = contributionDataHelper(db);
@@ -90,14 +90,6 @@ app.get("/", (req, res) => {
         "favorite"
       ),
     });
-    // console.log("user data : ", data[0]);
-    // console.log("all maps data : ", data[1]);
-    // console.log("cont maps data : ", data[2]);
-    // console.log(getCombinedMapData(data[1], data[2], "contributed"));
-    // console.log("fav maps", data[3]);
-    // const contMaps = getCombinedMapData(data[1], data[2], "contributed");
-
-    // console.log(getCombinedMapData(contMaps, data[3], "favorite"));
   });
 });
 

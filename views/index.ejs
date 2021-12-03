@@ -28,7 +28,7 @@
                 <div>
                   <% if (map.contributed) { %>
                   <i class="fas fa-pen"></i>
-                  <% } %> <% if (map.favorite) { %>
+                  <% } %> <% if (user) { if (map.favorite) { %>
                   <i class="fas fa-heart unset-favorite-btn">
                     <input hidden value="<%=map.id%>" />
                   </i>
@@ -36,7 +36,7 @@
                   <i class="far fa-heart set-favorite-btn">
                     <input hidden value="<%=map.id%>" />
                   </i>
-                  <% } %>
+                  <% } }%>
                 </div>
               </div>
               <% } %>
